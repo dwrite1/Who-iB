@@ -1,0 +1,5 @@
+﻿jsconfig.json
+typings.json
+typings/
+.vs/
+.vscode/

@@ -8,7 +8,7 @@
 
 WhoUB.prototype.analyzeText = function(){
 	$.ajax({
-		url: ''
+		url: '',
 		method: 'GET'
 	}).done(function(){});
 	console.log(this.inputText.val());

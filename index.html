@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Project 1</title>
+    <title>WhoUB</title>
 
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -13,7 +13,58 @@
 </head>
 
 <body>
-
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        WhoUB
+      </a>
+    </div>
+ 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Profile <span class="sr-only">(current)</span></a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+  	</div>
+  </div>
+</nav>
+<div class="container">
+	<div class="header"><h1>Personality Profile</h1></div>
+	<div class="row"><div class="columns col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Check Your Self [before you wreck yourself]</div>
+			<div class="panel-body"><div class="row">
+				<div class="columns col-sm-6  form-group">
+					<label for="input-text">Enter the text you want analyzed:</label>
+					<textarea id="input-text" class="form-control" rows="3"></textarea>
+					<br>
+					<button id="send-text" class="btn btn-large btn-success">Submit</button>
+				</div>
+				<div class="columns col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Tone Information</div>
+						<div class="panel-body">
+							Enter Text and submit to see the results here
+						</div>
+					</div>
+				</div>
+			</div></div>
+		</div>
+	</div></div>
+	<div class="row"><div class="columns col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Your Personality Profile</div>
+			<div class="panel-body">Enter more text for us to determine your personality</div>
+		</div>
+	</div></div>
+	<div class="row"><div class="columns col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">Your Previous Tones</div>
+			<div class="panel-body">You can find all your old tone queries here</div>
+		</div>
+	</div></div>
+</div>
     <script type="text/javascript" src="assets/scripts/logic.js"></script>
 </body>
 

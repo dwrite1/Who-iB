@@ -4,8 +4,6 @@
 	this.inputText = $('#input-text');
 
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
-
-
 }
 
 WhoUB.prototype.analyzeText = function(){

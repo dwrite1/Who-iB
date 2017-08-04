@@ -62,6 +62,7 @@ function WhoUB(){
 	}
 	this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));	//Not sure what this line is about
 	
+
 }
 
   //GoogApp method to allow users to sign in

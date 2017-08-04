@@ -2,71 +2,129 @@
 <html lang="en-us">
 
 <head>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/foundation.min.css" />
     <meta charset="UTF-8">
-    <title>WhoUB</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WhoUB - Discover Yourself</title>
 
-
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+ 	<script src="assets/js/vendor/jquery.js"></script>
 </head>
 
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        WhoUB
-      </a>
-    </div>
- 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Profile <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+
+<!-- Add a Sticky Menu -->
+<div data-sticky-container>
+  <div class="top-bar" data-sticky data-margin-top="0" id="example-menu">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li class="menu-text">WhoIB</li>
       </ul>
-  	</div>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu" data-magellan>
+        <li><a href="#first">My Profile</a></li>
+        <li><a href="#second">About</a></li>
+        <li><a href="#third">Contact</a></li>
+      </ul>
+    </div>
   </div>
-</nav>
-<div class="container">
-	<div class="header"><h1>Personality Profile</h1></div>
-	<div class="row"><div class="columns col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Check Your Self [before you wreck yourself]</div>
-			<div class="panel-body"><div class="row">
-				<div class="columns col-sm-6  form-group">
-					<label for="input-text">Enter the text you want analyzed:</label>
-					<textarea id="input-text" class="form-control" rows="3"></textarea>
-					<br>
-					<button class="btn btn-large btn-success">Submit</button>
+</div>
+
+<!-- Add content where magellan will be linked -->
+<div class="sections">
+  <section id="first" data-magellan-target="first">
+	 <div id="logged-out-stuff">
+		<div class="callout large">
+		  <h5>Please sign in to begin your inner journey</h5>
+		  <p>If you do not have an account, simply click the Google sign-in button and we will automatically create one for you.</p>
+	 	<a href="#" id="login-button"><img src="assets/img/btn_google.png"></a>
+		</div>
+ 	</div>
+
+	<div id="logged-in-stuff">
+		<div class="callout large">
+			<div class="callout-divider clearfix columns">
+				<h3 class="float-left">Personality Profile of <span id="user-welcome"></span></h3>
+				<br class="show-for-small-only">
+				<span class="float-right">
+				<button id="sign-out" class="secondary button">Sign Out</button>
+			</span></div><br>
+			<div class="grid-x grid-padding-x">
+				<div class="small-12 medium-6 cell">
+					<div class="card-divider">Enter the text you want analyzed:</div>
+						<textarea id="input-text" rows="3"></textarea>
+					
+					<button id="send-text" class="success large button">Submit</button>
 				</div>
-				<div class="columns col-sm-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">Tone Information</div>
-						<div class="panel-body">
+				<div class="small-12 medium-6 cell" >
+					<div class="card">
+						<div class="card-divider">Tone Information</div>
+						<div id="tone-information" class="card-section">
 							Enter Text and submit to see the results here
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row"><div class="small-12 columns">
+				<div class="callout">
+					<div class="title-bar">Your Personality</div>
+					<div class="callout-section">Enter more text for us to determine your personality</div>
+				</div>
 			</div></div>
-		</div>
-	</div></div>
-	<div class="row"><div class="columns col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Your Personality Profile</div>
-			<div class="panel-body">Enter more text for us to determine your personality</div>
-		</div>
-	</div></div>
-	<div class="row"><div class="columns col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Your Previous Tones</div>
-			<div class="panel-body">You can find all your old tone queries here</div>
-		</div>
-	</div></div>
+			<div class="row"><div class="small-12 columns">
+				<div class="callout">
+					<div class="title-bar">Your Previous Tones</div>
+					<hr>
+<div class="grid-x grid-padding-x" data-equalizer data-equalize-on="medium" id="sentiments-eq">
+  <div class="medium-3 cell">
+    <div class="callout" data-equalizer-watch>
+      <img src= "assets/img/generic/square-1.jpg">
+    </div>
+  </div>
+  <div class="medium-3 cell">
+    <div class="callout" data-equalizer-watch>
+      <p>Pellentesque habitant morbi tristique senectus et netus et, ante.</p>
+    </div>
+  </div>
+  <div class="medium-3 cell">
+    <div class="callout" data-equalizer-watch>
+      <img src= "">
+    </div>
+  </div>
+  <div class="medium-3 cell">
+    <div class="callout" data-equalizer-watch>
+      <img src= "">
+    </div>
+  </div>
 </div>
+					<div class="callout-section">You can find all your old tone queries here</div>
+				</div>
+			</div></div>
+		</div>					<!-- end of callout -->
+	</div>    					<!-- end of logged-in stuff -->
+  </section>
+  <section id="second" data-magellan-target="second">
+		<div class="callout large">
+		  	<p>
+		  		<blockquote>
+		  			“Knowing yourself is the beginning of all wisdom.” 
+		  			<cite>Aristotle</cite>
+	  			</blockquote>
+				Self-reflection can be a fruitful and and worthwhile endeavor, but without quantitative input, it can lead to self-deprecation. With advances in natural language processing, self-assessments can be quantified and lead to concrete goals for improvement or just a better understanding of one’s personality traits. WhoIB can take your text interactions and thoughts to give you a snapshot of your tone. In the long-term, we will build a personality profile that will give you insights into Who U B.
+		  	</p>
+	  	</div>
+  </section>
+  <section id="third" data-magellan-target="third">Third Section</section>
+</div>
+
+
     <script type="text/javascript" src="assets/scripts/logic.js"></script>
+    <script src="assets/js/vendor/what-input.js"></script>
+ 	<script src="assets/js/vendor/foundation.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

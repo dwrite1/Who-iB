@@ -210,28 +210,6 @@ WhoUB.prototype.analyzeText = function(e) {
 		this.inputText.val("");
 		this.displaySentimentHistory();
 		}.bind(this));	
-
-
-			let newSnip = new this.Snippet(inputText, response.documentSentiment.score,
-				response.documentSentiment.magnitude)
-			$('#current-date').html(newSnip.time);
-			$('#current-text').html(newSnip.text);
-			$('#current-score').html(newSnip.score);
-			$('#current-magnitude').html(newSnip.magnitude);
-			this.texts.push(newSnip); //put user input into texts array
-			//write to firebase
-			let uName = this.userName;
-			let uPic = this.profilePicUrl;
-			let uTexts = this.texts;
-			this.database.ref(this.users + this.uid).set({
-				uName,
-				uPic,
-				uTexts
-			});
-			//empty out input box and show new text in container
-			this.inputText.val("");
-			this.displaySentimentHistory();
-		}.bind(this));
 	}
 }
 

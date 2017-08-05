@@ -197,7 +197,6 @@ WhoUB.prototype.analyzezPersonality = async function(e) {
 	console.log("finished");
 
 	var personalityDiv = $("#personality");
-	
 	for (var i = 0; i < res.personality.length; i++) {
 		var personality = res.personality[i];
 		var personalityInfo = $("<div>");

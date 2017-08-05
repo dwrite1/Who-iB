@@ -166,7 +166,7 @@ WhoUB.prototype.signOut = function(e){
 }
 
 // analizes all text for watson API
-WhoUB.prototype.analyzezPersonality = function(e) {
+WhoUB.prototype.analyzezPersonality = async function(e) {
 	//calculate if the text is over the amount;
 	var combinedText = "";
 	var minimumLength = 600;

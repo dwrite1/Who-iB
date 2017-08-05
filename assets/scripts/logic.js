@@ -222,7 +222,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 WhoUB.prototype.analyzeText = function(e) {
 	e.preventDefault();
 	var inputText = this.inputText.val().trim();
-	if (inputText != "") { //make sure user typed something
+	if (!inputText) { //make sure user typed something
 		var settings = { //settings to make a CORS call to NLP
 			"async": true,
 			"crossDomain": true,

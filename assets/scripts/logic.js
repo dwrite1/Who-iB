@@ -24,6 +24,7 @@ function WhoUB() {
 	this.signInButton.addEventListener('click', this.signIn.bind(this));
 	this.signOutButton.addEventListener('click', this.signOut.bind(this));
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
+
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
 	this.modalDelete.addEventListener('click', this.deleteSentiment(this));
 
@@ -96,7 +97,11 @@ function WhoUB() {
 	this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));	//send any auth changes to Google's obj
 }
 
-WhoUB.prototype.modalClose = function(){
+WhoUB.prototype.deleteSentiment = function(){
+	this.modal.foundation('close');
+}
+
+WhoUB.prototype.closeModal = function(){
 	this.modal.foundation('close');
 }
 
@@ -212,7 +217,6 @@ WhoUB.prototype.analyzeText = function(e) {
 		}.bind(this));	
 	}
 }
-
 
 $(document).ready(function() {
 

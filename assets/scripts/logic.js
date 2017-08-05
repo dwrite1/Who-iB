@@ -24,9 +24,9 @@ function WhoUB() {
 	this.signInButton.addEventListener('click', this.signIn.bind(this));
 	this.signOutButton.addEventListener('click', this.signOut.bind(this));
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
-	this.modalClose.addEventListener('click', this.closeModal.bind(this));
-	this.modalDelete.addEventListener('click', this.deleteSentiment(this));
-
+	// this.modalClose.addEventListener('click', this.closeModal.bind(this));
+	// this.modalDelete.addEventListener('click', this.deleteSentiment(this));
+ 
 	$('.card-info').on('click', function(item){console.log(item)});
 	this.displaySentimentHistory.bind(this);
 	this.Snippet = function(text, score = 0, magnitude = 0){		//Object to hold individual user inputs

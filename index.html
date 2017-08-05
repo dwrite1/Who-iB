@@ -44,9 +44,9 @@
 			</div>
 			<!-- only show if user is authorized -->
 			<div id="logged-in-stuff">
-				<div class="callout large">
+				<div class="callout ">
 					<div class="callout-divider clearfix columns">
-						<h3 class="float-left">Personality Profile of <span id="user-welcome"></span></h3>
+						<h3 class="float-left">Welcome, <span id="user-welcome"></span></h3>
 						<br class="show-for-small-only">
 						<span class="float-right">
 								<button id="sign-out" class="alert button">Sign Out</button>
@@ -104,10 +104,87 @@
 					<div class="row">
 						<div class="small-12 columns">
 							<div class="callout">
-								<div class="title-bar">Your Personality</div>
-								<div class="callout-section">Enter more text for us to determine your personality</div>
-								<div id="personality">
+<!-- 								<div class="title-bar">Your Personality</div>
+ -->								<div class="callout-section"></div>
+								<div id="personality" class="grid-x grid-padding-x">
+<!-- Personality raphs from Foundation Block -->
 
+<div class="cells small-12 medium-6">
+<div class="card profile-card-action-icons">
+  <div class="card-section">
+    <div class="profile-card-header">
+      <div class="profile-card-avatar">
+        <img class="avatar-image" src="" alt="">
+      </div>
+      <div class="profile-card-author">
+        <h5 id="profile-username" class="author-title">Harry Manchanda</h5>
+        <p class="author-description">Strongest Trait <span id="profile-trait"></span></p>
+      </div>
+    </div>
+    <div class="profile-card-about">
+      <h5 class="about-title separator-left">Your Personality</h5>
+      <p id="profile-text" class="about-content">
+        We can get your full personality profile after we have at least 625 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
+      </p>
+      <div class="grid-x about-skills">
+        <div class="small-6 cells">
+          <ul class="arrow">
+            <li>Coding</li>
+            <li>Cricket</li>
+            <li>Enjoying</li>
+          </ul>
+        </div>
+        <div class="small-6 cells">
+          <ul class="arrow">
+            <li>Maths</li>
+            <li>Dancing</li>
+            <li>Smiling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+	
+</div>
+<div class="cells small-12 medium-6">
+<ul class="bar-graph">
+  <li class="bar-graph-axis">
+    <div class="bar-graph-label">100%</div>
+    <div class="bar-graph-label">80%</div>
+    <div class="bar-graph-label">60%</div>
+    <div class="bar-graph-label">40%</div>
+    <div class="bar-graph-label">20%</div>
+    <div class="bar-graph-label">0%</div>
+  </li>
+  <li class="bar primary" style="height: 95%;" title="95">
+    <div class="percent">95<span>%</span></div>
+    <div class="description">Openness</div>
+  </li>
+  <li class="bar secondary" style="height: 90%;" title="90">
+    <div class="percent">90<span>%</span></div>
+    <div class="description">Vigilance</div>   <!-- Conscientiousness -->
+  </li>
+  <li class="bar success" style="height: 80%;" title="80">
+    <div class="percent">80<span>%</span></div>
+    <div class="description">Extraversion</div>
+  </li>
+  <li class="bar warning" style="height: 75%;" title="75">
+    <div class="percent">75<span>%</span></div>
+    <div class="description">Agreeableness</div>
+  </li>
+  <li class="bar alert" style="height: 40%;" title="40">
+    <div class="percent">40<span>%</span></div>
+    <div class="description">Emotional<br> Range</div>
+  </li>
+</ul>
+	
+</div>
+
+
+<!-- End of Personality Block -->
 								</div>
 							</div>
 						</div>

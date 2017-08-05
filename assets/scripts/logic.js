@@ -167,33 +167,45 @@ WhoUB.prototype.signOut = function(e){
 
 // analizes all text for watson API
 WhoUB.prototype.analyzezPersonality = async function(e) {
-	//calculate if the text is over the amount;
+	//Get text and combine into string
 	var combinedText = "";
-	var minimumLength = 600;
-
+	var keys = this.texts.keys;
 	for (var i = 0; i < this.texts.length; i++) {
-		var text = this.texts[i];
-		combinedText += text;
+		var textObject = this.texts[i];
+		combinedText += textObject.text + " ";
 	}
 
-	if (combinedText.length >= minimumLength) {
-		alert("You need more text to get an accurate read on your personality");
-		return;
-	}
+	//calculate if the text is over the amount;
+	// var minimumLength = 600;
+	// if (combinedText.length > minimumLength) {
+	// 	alert("You need more text to get an accurate read on your personality");
+	// 	return;
+	// }
+
+	if (!combinedText) return;
 	
-	var response = await $.ajax({
+	console.log("Waiting for response");
+	$.ajax({
 		url: 'https://watson-easy.herokuapp.com/profile',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {
-			content: this.texts.join(" ")
+			content: combinedText
 		}
-	}).response;
+	}).done(function(response) {
+		console.log(response)
+	});
+	
+
+	console.log("finished");
+	// console.log(`response: ${res}`);
+	
+	return;
 	
 	var personalityDiv = $("#personality");
 	
-	for (var i = 0; i < response.personality.length; i++) {
-		var personality = response.personality[i];
+	for (var i = 0; i < res.personality.length; i++) {
+		var personality = res.personality[i];
 		var personalityInfo = $("<div>");
 
 		//add children to div later

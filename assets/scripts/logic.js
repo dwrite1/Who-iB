@@ -6,7 +6,7 @@ function WhoUB() {
 	this.signInButton = document.getElementById('login-button');
 	this.signOutButton = document.getElementById('sign-out');
 	this.modalDelete = document.getElementById('modal-delete-button');
-	this.modalClose = document.getElementById('modal-close-button');	
+	this.modalClose = document.getElementById('modal-close-button');
 	this.snipDetails = document.getElementsByClassName('card-info');
 
 	this.inputText = $('#input-text');
@@ -31,10 +31,12 @@ function WhoUB() {
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
 	this.modalDelete.addEventListener('click', this.deleteSentiment.bind(this));
 
-	$('.card-info').on('click', function(item){console.log(item)});
+	$('.card-info').on('click', function(item) {
+		console.log(item)
+	});
 	this.displaySentimentHistory.bind(this);
 	this.pushToFirebase.bind(this);
-	this.Snippet = function(text, score = 0, magnitude = 0){		//Object to hold individual user inputs
+	this.Snippet = function(text, score = 0, magnitude = 0) { //Object to hold individual user inputs
 		this.text = text;
 		this.time = new Date().toLocaleString('en-US')
 		this.score = score;
@@ -65,108 +67,112 @@ function WhoUB() {
 
 	//called when someone logs in or out
 	this.onAuthStateChanged = function(user) {
-	  if (user) { 									// User is signed in!
-	  	this.loginDiv.hide();						// hide login button
-	  	this.profileDiv.show();	
-	    this.uid = user.uid; 						// get user info from google auth
-	    this.profilePicUrl = user.photoURL;  
-	    this.userName = user.displayName;
+		if (user) { // User is signed in!
+			this.loginDiv.hide(); // hide login button
+			this.profileDiv.show();
+			this.uid = user.uid; // get user info from google auth
+			this.profilePicUrl = user.photoURL;
+			this.userName = user.displayName;
 
-	  	//look for the user based on UID
-	    this.database.ref(this.users+this.uid).once('value')	//check if we have their data
-	    	.then(function(snapshot) {
-		    if(snapshot.val()==null){				//User not in DB so add them
-		    	console.log("account doesn't exist");
-	    		//write to firebase
-				let uName = this.userName;			//new vars b/c set doesn't like dots
-				let uPic = this.profilePicUrl;
-				let uTexts = this.texts;
-				this.database.ref(this.users+this.uid).set({uName, uPic, uTexts});
-			//write user info into firebase
-			} else {								//user exists, get their info    		
-			    console.log(snapshot.val().uName + " is in our Database");
-	    		if(snapshot.val().uTexts!= undefined){
-			    	this.texts = snapshot.val().uTexts;
-			    	this.displaySentimentHistory();
-			    }
-			    this.userWelcome.html(this.userName);
-			}
-	    }.bind(this));
-      }else{										//user logged out - hide profile info and show login
-	    	console.log("logged out");
-	    	this.profileDiv.hide();
-	    	this.loginDiv.show();
-	    }
+			//look for the user based on UID
+			this.database.ref(this.users + this.uid).once('value') //check if we have their data
+				.then(function(snapshot) {
+					if (snapshot.val() == null) { //User not in DB so add them
+						console.log("account doesn't exist");
+						//write to firebase
+						let uName = this.userName; //new vars b/c set doesn't like dots
+						let uPic = this.profilePicUrl;
+						let uTexts = this.texts;
+						this.database.ref(this.users + this.uid).set({
+							uName,
+							uPic,
+							uTexts
+						});
+						//write user info into firebase
+					} else { //user exists, get their info    		
+						console.log(snapshot.val().uName + " is in our Database");
+						if (snapshot.val().uTexts != undefined) {
+							this.texts = snapshot.val().uTexts;
+							this.displaySentimentHistory();
+						}
+						this.userWelcome.html(this.userName);
+					}
+				}.bind(this));
+		} else { //user logged out - hide profile info and show login
+			console.log("logged out");
+			this.profileDiv.hide();
+			this.loginDiv.show();
+		}
 	}
-	this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));	//send any auth changes to Google's obj
+	this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this)); //send any auth changes to Google's obj
 }
 
-WhoUB.prototype.deleteSentiment = function(e){
+WhoUB.prototype.deleteSentiment = function(e) {
 	this.texts.splice($(e.target).attr("data-key"), 1);
-	this.pushToFirebase();	
+	this.pushToFirebase();
 	this.modal.foundation('close');
 }
 
-WhoUB.prototype.closeModal = function(){
+WhoUB.prototype.closeModal = function() {
 	this.modal.foundation('close');
 }
 
 //show historical sentiments in the sentiment div
-WhoUB.prototype.displaySentimentHistory = function(){
+WhoUB.prototype.displaySentimentHistory = function() {
 	$('#sentiments-eq').html("");
 	let sentimentContainer, calloutClass, curSentiment;
-	for(key in this.texts){
+	for (key in this.texts) {
 		sentimentContainer = $('<div class="medium-3 cell">');
 		calloutClass = "secondary";
-		if(this.texts[key].score >.6 && this.texts[key].magnitude > 1){
+		if (this.texts[key].score > .6 && this.texts[key].magnitude > 1) {
 			calloutClass = "success";
-		}else if(this.texts[key].score < 0 && this.texts[key].magnitude > 0){
+		} else if (this.texts[key].score < 0 && this.texts[key].magnitude > 0) {
 			calloutClass = "alert";
 		}
 
-		curSentiment = sentimentContainer.html($('<div class="card-info" data-equalizer-watch '+
-			//evenlistener to handle user clicking a sentiment snippet
-			'data-key="' + key + '">').click(function(e){
-					let curSnippet = $(e.currentTarget).attr("data-key");
-					let snippetToExpand = this.texts[curSnippet];
-					//put the current sentiment info in the modal				
-					this.modalText.html(snippetToExpand.text);
-					this.modalDate.html(snippetToExpand.time);
-					this.modalScore.html(snippetToExpand.score);
-					this.modalMagnitude.html(snippetToExpand.magnitude);
-					$(this.modalDelete).attr('data-key', curSnippet)
-					this.modal.foundation('open');
+		curSentiment = sentimentContainer.html($('<div class="card-info" data-equalizer-watch ' +
+				//evenlistener to handle user clicking a sentiment snippet
+				'data-key="' + key + '">').click(function(e) {
+				let curSnippet = $(e.currentTarget).attr("data-key");
+				let snippetToExpand = this.texts[curSnippet];
+				//put the current sentiment info in the modal				
+				this.modalText.html(snippetToExpand.text);
+				this.modalDate.html(snippetToExpand.time);
+				this.modalScore.html(snippetToExpand.score);
+				this.modalMagnitude.html(snippetToExpand.magnitude);
+				$(this.modalDelete).attr('data-key', curSnippet)
+				this.modal.foundation('open');
 			}.bind(this)) //Wrap data in a card and add key as attribute
 			.addClass(calloutClass).html($('<div class="card-info-label">')
-			.append($('<div class="card-info-label-text">').html(this.texts[key].score)))	//add score as label
-			.append($('<div class="card-info-content">').html('<p>'+this.texts[key].text+'</p>'))//inject text
+				.append($('<div class="card-info-label-text">').html(this.texts[key].score))) //add score as label
+			.append($('<div class="card-info-content">').html('<p>' + this.texts[key].text + '</p>')) //inject text
 		);
 
-		$('#sentiments-eq').prepend(curSentiment);					//append the card to whats already there
+		$('#sentiments-eq').prepend(curSentiment); //append the card to whats already there
 	}
 }
 
 //when user clicks a snippet from history
-WhoUB.prototype.showSnipDetails = function(e){
+WhoUB.prototype.showSnipDetails = function(e) {
 	let snippetToExpand = $(val.currentTarget).attr("data-key");
 }
 
 //GoogApp method to allow users to sign in
-WhoUB.prototype.signIn = function(e){
-		e.preventDefault();
+WhoUB.prototype.signIn = function(e) {
+	e.preventDefault();
 	var provider = new firebase.auth.GoogleAuthProvider();
-	this.auth.signInWithPopup(provider);    		
+	this.auth.signInWithPopup(provider);
 }
 
 //GoogApp method to allow users to sign out  
-WhoUB.prototype.signOut = function(e){
+WhoUB.prototype.signOut = function(e) {
 	e.preventDefault();
 	this.auth.signOut();
 	console.log("signed out");
 }
 
 // analizes all text for watson API
-WhoUB.prototype.analyzezPersonality = async function(e) {
+WhoUB.prototype.analyzezPersonality = function(e) {
 	//Get text and combine into string
 	var combinedText = "";
 	var keys = this.texts.keys;
@@ -183,30 +189,33 @@ WhoUB.prototype.analyzezPersonality = async function(e) {
 	// }
 
 	if (!combinedText) return;
-	
+
 	console.log("Waiting for response");
-	var res = await $.ajax({
+	
+	$.ajax({
 		url: 'https://watson-easy.herokuapp.com/profile',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {
 			content: combinedText
 		}
-	}).response;
+	}).done(res => {
+		console.log("finished");
 
-	console.log("finished");
+		var personalityDiv = $("#personality");
 
-	var personalityDiv = $("#personality");
-	for (var i = 0; i < res.personality.length; i++) {
-		var personality = res.personality[i];
-		var personalityInfo = $("<div>");
 
-		//add children to div later
-		var personalityName = $("<p>").html(personality.name);
-		var personalityPercentile = $("<p>").html(personality.percentile);
+		for (var i = 0; i < res.personality.length; i++) {
+			var personality = res.personality[i];
+			var personalityInfo = $("<div>");
 
-		personalityDiv.append(personalityName, personalityPercentile);
-	}
+			//add children to div later
+			var personalityName = $("<p>").html(personality.name);
+			var personalityPercentile = $("<p>").html(personality.percentile);
+
+			personalityDiv.append(personalityName, personalityPercentile);
+		}
+	});
 }
 
 //function to take user input and return their sentiment
@@ -230,33 +239,41 @@ WhoUB.prototype.analyzeText = function(e) {
 
 		//make ajax call and show results to user
 
-		$.ajax(settings).done(function (response) {
-				let newSnip = new this.Snippet(inputText, response.documentSentiment.score, 
-					response.documentSentiment.magnitude)
-				this.curDate.html(newSnip.time);
-				this.curText.html(newSnip.text);
-				this.curScore.html(newSnip.score);
-				this.curMagnitude.html(newSnip.magnitude);
-				this.texts.push(newSnip); 				//put user input into texts array
-		//write to firebase
-		let uName = this.userName;
-		let uPic = this.profilePicUrl;
-		let uTexts = this.texts;
-		this.database.ref(this.users+this.uid).set({uName, uPic, uTexts});
-		//empty out input box and show new text in container
-		this.inputText.val("");
-		this.displaySentimentHistory();
-		}.bind(this));	
+		$.ajax(settings).done(function(response) {
+			let newSnip = new this.Snippet(inputText, response.documentSentiment.score,
+				response.documentSentiment.magnitude)
+			this.curDate.html(newSnip.time);
+			this.curText.html(newSnip.text);
+			this.curScore.html(newSnip.score);
+			this.curMagnitude.html(newSnip.magnitude);
+			this.texts.push(newSnip); //put user input into texts array
+			//write to firebase
+			let uName = this.userName;
+			let uPic = this.profilePicUrl;
+			let uTexts = this.texts;
+			this.database.ref(this.users + this.uid).set({
+				uName,
+				uPic,
+				uTexts
+			});
+			//empty out input box and show new text in container
+			this.inputText.val("");
+			this.displaySentimentHistory();
+		}.bind(this));
 	}
 }
 
-WhoUB.prototype.pushToFirebase = function(){
-			//write to firebase
-		let uName = this.userName;
-		let uPic = this.profilePicUrl;
-		let uTexts = this.texts;
-		this.database.ref(this.users+this.uid).set({uName, uPic, uTexts});
-		this.displaySentimentHistory();
+WhoUB.prototype.pushToFirebase = function() {
+	//write to firebase
+	let uName = this.userName;
+	let uPic = this.profilePicUrl;
+	let uTexts = this.texts;
+	this.database.ref(this.users + this.uid).set({
+		uName,
+		uPic,
+		uTexts
+	});
+	this.displaySentimentHistory();
 }
 
 $(document).ready(function() {
@@ -267,4 +284,3 @@ $(document).ready(function() {
 		x.analyzezPersonality();
 	});
 });
-

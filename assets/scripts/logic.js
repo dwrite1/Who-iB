@@ -55,7 +55,7 @@ function WhoUB(){
 	    this.userName = user.displayName;
 
 	  	//look for the user based on UID
-	    this.database.ref(this.users+this.uid).once('value')
+	    this.database.ref(this.users+this.uid).once('value')	//check if we have their data
 	    	.then(function(snapshot) {
 		    if(snapshot.val()==null){				//User not in DB so add them
 		    	console.log("account doesn't exist");
@@ -75,9 +75,7 @@ function WhoUB(){
 			    this.userWelcome.html(this.userName);
 			}
 	    }.bind(this));
-// //overrite firbase info
-// this.database.ref(this.users+uid).set({userName, profilePicUrl, text});
-	    }else{
+      }else{									//user logged out - hide profile info and show login
 	    	console.log("logged out");
 	    	this.profileDiv.hide();
 	    	this.loginDiv.show();
@@ -96,11 +94,17 @@ function WhoUB(){
 			calloutClass = "secondary";
 			if(this.texts[key].score >.6 && this.texts[key].magnitude > 1){
 				calloutClass = "success";
-			}else if(this.texts[key].score < -0.6 && this.texts[key].magnitude > 1){
+			}else if(this.texts[key].score < 0 && this.texts[key].magnitude > 0){
 				calloutClass = "alert";
 			}
-			curSentiment = sentimentContainer.html($('<div class="callout" data-equalizer-watch>')
-				.addClass(calloutClass).html(this.texts[key].text+this.texts[key].time+this.texts[key].score));
+
+			curSentiment = sentimentContainer.html($('<div class="card-info" data-equalizer-watch '+
+				'data-key="' + key + '">')
+				.addClass(calloutClass).html($('<div class="card-info-label">')
+				.append($('<div class="card-info-label-text">').html(this.texts[key].score)))
+				.append($('<div class="card-info-content">').html('<p>'+this.texts[key].text+'</p>'))
+			);
+
 			$('#sentiments-eq').append(curSentiment);
 		}
 	}
@@ -119,7 +123,8 @@ function WhoUB(){
   }
 
 //function to take user input and return their sentiment
-WhoUB.prototype.analyzeText = function(){
+WhoUB.prototype.analyzeText = function(e){
+	e.preventDefault();
 	var inputText = this.inputText.val().trim();
 	if (inputText != "") {									//make sure user typed something
 		var settings = {									//settings to make a CORS call to NLP
@@ -138,20 +143,26 @@ WhoUB.prototype.analyzeText = function(){
 
 		//make ajax call and show results to user
 		$.ajax(settings).done(function (response) {
-				var output = $('<ul>').html($('<li>').html("Sentiment Score: " + 
-				response.documentSentiment.score)).append("Sentiment Magnitude: " + 
-				response.documentSentiment.magnitude);
-				this.displayTone.html(output);
-		this.texts.push(new this.Snippet(inputText, 				//put user input into texts array
-			response.documentSentiment.score, response.documentSentiment.magnitude));
+				// var output = $('<ul>').html($('<li>').html("Score: " + 
+				// response.documentSentiment.score)).append("Sentiment Magnitude: " + 
+				// response.documentSentiment.magnitude);
+				// this.displayTone.html(output);
+
+				let newSnip = new this.Snippet(inputText, response.documentSentiment.score, 
+					response.documentSentiment.magnitude)
+				$('#current-date').html(newSnip.time);
+				$('#current-text').html(newSnip.text);
+				$('#current-score').html(newSnip.score);
+				$('#current-magnitude').html(newSnip.magnitude);
+				this.texts.push(newSnip); 				//put user input into texts array
 		//write to firebase
 		let uName = this.userName;
 		let uPic = this.profilePicUrl;
 		let uTexts = this.texts;
 		this.database.ref(this.users+this.uid).set({uName, uPic, uTexts});
-
-		  console.log(response.documentSentiment.magnitude);
-		  console.log(response.documentSentiment.score);
+		//empty out input box and show new text in container
+		this.inputText.val("");
+		this.displaySentimentHistory();
 		}.bind(this));	
 
 	}

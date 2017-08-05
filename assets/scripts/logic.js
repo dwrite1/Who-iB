@@ -28,12 +28,12 @@ function WhoUB() {
 	this.signInButton.addEventListener('click', this.signIn.bind(this));
 	this.signOutButton.addEventListener('click', this.signOut.bind(this));
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
-
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
 	this.modalDelete.addEventListener('click', this.deleteSentiment.bind(this));
 
 	$('.card-info').on('click', function(item){console.log(item)});
 	this.displaySentimentHistory.bind(this);
+	this.pushToFirebase.bind(this);
 	this.Snippet = function(text, score = 0, magnitude = 0){		//Object to hold individual user inputs
 		this.text = text;
 		this.time = new Date().toLocaleString('en-US')
@@ -102,11 +102,8 @@ function WhoUB() {
 }
 
 WhoUB.prototype.deleteSentiment = function(e){
-	console.log(this.texts);	
-	console.log($(e.target).attr("data-key"));
 	this.texts.splice($(e.target).attr("data-key"), 1);
-	console.log(this.texts);	
-	this.displaySentimentHistory();	
+	this.pushToFirebase();	
 	this.modal.foundation('close');
 }
 
@@ -139,7 +136,6 @@ WhoUB.prototype.displaySentimentHistory = function(){
 					this.modalMagnitude.html(snippetToExpand.magnitude);
 					$(this.modalDelete).attr('data-key', curSnippet)
 					this.modal.foundation('open');
-					console.log(snippetToExpand);
 			}.bind(this)) //Wrap data in a card and add key as attribute
 			.addClass(calloutClass).html($('<div class="card-info-label">')
 			.append($('<div class="card-info-label-text">').html(this.texts[key].score)))	//add score as label
@@ -153,7 +149,6 @@ WhoUB.prototype.displaySentimentHistory = function(){
 //when user clicks a snippet from history
 WhoUB.prototype.showSnipDetails = function(e){
 	let snippetToExpand = $(val.currentTarget).attr("data-key");
-	console.log(e);
 }
 
 //GoogApp method to allow users to sign in
@@ -229,6 +224,15 @@ WhoUB.prototype.analyzeText = function(e) {
 		this.displaySentimentHistory();
 		}.bind(this));	
 	}
+}
+
+WhoUB.prototype.pushToFirebase = function(){
+			//write to firebase
+		let uName = this.userName;
+		let uPic = this.profilePicUrl;
+		let uTexts = this.texts;
+		this.database.ref(this.users+this.uid).set({uName, uPic, uTexts});
+		this.displaySentimentHistory();
 }
 
 $(document).ready(function() {

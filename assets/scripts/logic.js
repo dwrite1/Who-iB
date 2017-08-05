@@ -185,23 +185,17 @@ WhoUB.prototype.analyzezPersonality = async function(e) {
 	if (!combinedText) return;
 	
 	console.log("Waiting for response");
-	$.ajax({
+	var res = await $.ajax({
 		url: 'https://watson-easy.herokuapp.com/profile',
 		type: 'POST',
 		dataType: 'JSON',
 		data: {
 			content: combinedText
 		}
-	}).done(function(response) {
-		console.log(response)
-	});
-	
+	}).response;
 
 	console.log("finished");
-	// console.log(`response: ${res}`);
-	
-	return;
-	
+
 	var personalityDiv = $("#personality");
 	
 	for (var i = 0; i < res.personality.length; i++) {

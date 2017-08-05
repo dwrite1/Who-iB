@@ -1,5 +1,6 @@
 ﻿var tempOutput;
-function WhoUB(){
+
+function WhoUB() {
 	//get DOM elements
 	this.sendText = document.getElementById('send-text');
 	this.signInButton = document.getElementById('login-button');
@@ -7,6 +8,7 @@ function WhoUB(){
 	this.modalDelete = document.getElementById('modal-delete-button');
 	this.modalClose = document.getElementById('modal-close-button');	
 	this.snipDetails = document.getElementsByClassName('card-info');
+
 	this.inputText = $('#input-text');
 	this.loginDiv = $('#logged-out-stuff');
 	this.profileDiv = $('#logged-in-stuff');
@@ -33,7 +35,7 @@ function WhoUB(){
 		this.score = score;
 		this.magnitude = magnitude;
 	}
-	this.texts = [];						//holds all user input
+	this.texts = []; //holds all user input
 	//current user info
 	this.uid = null, this.profilePicUrl = "", this.userName = "";
 
@@ -46,13 +48,13 @@ function WhoUB(){
 		storageBucket: "bootcampproject1.appspot.com",
 		messagingSenderId: "258703035332"
 	};
-  	firebase.initializeApp(this.config);
+	firebase.initializeApp(this.config);
 	//get firebase services
 	this.storage = firebase.storage();
-  	this.auth = firebase.auth();	
+	this.auth = firebase.auth();
 	this.database = firebase.database();
-	this.users = 'users/';					//location of all users
-	this.snippets = 'snippets/';			//location of all analyzed text
+	this.users = 'users/'; //location of all users
+	this.snippets = 'snippets/'; //location of all analyzed text
 	this.loginDiv.hide();
 	this.profileDiv.hide();
 
@@ -150,26 +152,47 @@ WhoUB.prototype.signOut = function(e){
 	console.log("signed out");
 }
 
+// analizes all text for watson API
+WhoUB.prototype.analyzezPersonality = function(e) {
+	//read all of the cards 
+	//Combine them into one string, send to watson then parse it 
+	//calculate the amount of words so we can display a warning
+	
+	var personalityDiv = $("#personality");
+	
+	for (var i = 0; i < dummyData.personality.length; i++) {
+		var personality = dummyData.personality[i];
+		var personalityInfo = $("<div>");
+
+		//add children to div later
+		var personalityName = $("<p>").html(personality.name);
+		var personalityPercentile = $("<p>").html(personality.percentile);
+
+		personalityDiv.append(personalityName, personalityPercentile);
+	}
+}
+
 //function to take user input and return their sentiment
-WhoUB.prototype.analyzeText = function(e){
+WhoUB.prototype.analyzeText = function(e) {
 	e.preventDefault();
 	var inputText = this.inputText.val().trim();
-	if (inputText != "") {									//make sure user typed something
-		var settings = {									//settings to make a CORS call to NLP
-		  "async": true,
-		  "crossDomain": true,
-		  "url": "https://utcors1.herokuapp.com/https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyAjapmLhqEBFwEd5He9XZXCDP50Ew_GZiU",
-		  "method": "POST",
-		  "headers": {
-		    "content-type": "application/json",
-		    "cache-control": "no-cache",
-		    "postman-token": "e21e47e7-3460-0e59-1267-4042c8af2893"
-		  },
-		  "processData": false,
-		  "data": "{\r\n \"document\": {\r\n  \"content\": \"" + inputText +"\",\r\n  \"type\": \"PLAIN_TEXT\"\r\n },\r\n \"encodingType\": \"UTF8\"\r\n}"
-		}
+	if (inputText != "") { //make sure user typed something
+		var settings = { //settings to make a CORS call to NLP
+			"async": true,
+			"crossDomain": true,
+			"url": "https://utcors1.herokuapp.com/https://language.googleapis.com/v1/documents:analyzeSentiment?key=AIzaSyAjapmLhqEBFwEd5He9XZXCDP50Ew_GZiU",
+			"method": "POST",
+			"headers": {
+				"content-type": "application/json",
+				"cache-control": "no-cache",
+				"postman-token": "e21e47e7-3460-0e59-1267-4042c8af2893"
+			},
+			"processData": false,
+			"data": "{\r\n \"document\": {\r\n  \"content\": \"" + inputText + "\",\r\n  \"type\": \"PLAIN_TEXT\"\r\n },\r\n \"encodingType\": \"UTF8\"\r\n}"
+		};
 
 		//make ajax call and show results to user
+
 		$.ajax(settings).done(function (response) {
 				let newSnip = new this.Snippet(inputText, response.documentSentiment.score, 
 					response.documentSentiment.magnitude)
@@ -188,10 +211,33 @@ WhoUB.prototype.analyzeText = function(e){
 		this.displaySentimentHistory();
 		}.bind(this));	
 
-	}
 
+			let newSnip = new this.Snippet(inputText, response.documentSentiment.score,
+				response.documentSentiment.magnitude)
+			$('#current-date').html(newSnip.time);
+			$('#current-text').html(newSnip.text);
+			$('#current-score').html(newSnip.score);
+			$('#current-magnitude').html(newSnip.magnitude);
+			this.texts.push(newSnip); //put user input into texts array
+			//write to firebase
+			let uName = this.userName;
+			let uPic = this.profilePicUrl;
+			let uTexts = this.texts;
+			this.database.ref(this.users + this.uid).set({
+				uName,
+				uPic,
+				uTexts
+			});
+			//empty out input box and show new text in container
+			this.inputText.val("");
+			this.displaySentimentHistory();
+		}.bind(this));
+	}
 }
 
-$(document).ready(function(){
-	var x = new WhoUB();							//Start the App
+
+$(document).ready(function() {
+
+	var x = new WhoUB();
+	x.analyzezPersonality();
 });

@@ -167,14 +167,33 @@ WhoUB.prototype.signOut = function(e){
 
 // analizes all text for watson API
 WhoUB.prototype.analyzezPersonality = function(e) {
-	//read all of the cards 
-	//Combine them into one string, send to watson then parse it 
-	//calculate the amount of words so we can display a warning
+	//calculate if the text is over the amount;
+	var combinedText = "";
+	var minimumLength = 600;
+
+	for (var i = 0; i < this.texts.length; i++) {
+		var text = this.texts[i];
+		combinedText += text;
+	}
+
+	if (combinedText.length >= minimumLength) {
+		alert("You need more text to get an accurate read on your personality");
+		return;
+	}
+	
+	var response = await $.ajax({
+		url: 'https://watson-easy.herokuapp.com/profile',
+		type: 'POST',
+		dataType: 'JSON',
+		data: {
+			content: this.texts.join(" ")
+		}
+	}).response;
 	
 	var personalityDiv = $("#personality");
 	
-	for (var i = 0; i < dummyData.personality.length; i++) {
-		var personality = dummyData.personality[i];
+	for (var i = 0; i < response.personality.length; i++) {
+		var personality = response.personality[i];
 		var personalityInfo = $("<div>");
 
 		//add children to div later
@@ -236,7 +255,11 @@ WhoUB.prototype.pushToFirebase = function(){
 }
 
 $(document).ready(function() {
-
 	var x = new WhoUB();
 	x.analyzezPersonality();
+
+	$(document).click(() => {
+		x.analyzezPersonality();
+	});
 });
+

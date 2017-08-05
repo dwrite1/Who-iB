@@ -19,6 +19,10 @@ function WhoUB() {
 	this.curScore = $('#current-score');
 	this.curMagnitude = $('#current-magnitude');
 	this.modal = $('#sentimentModal');
+	this.modalText = $('#modal-text');
+	this.modalDate = $('#modal-date');
+	this.modalScore = $('#modal-score');
+	this.modalMagnitude = $('#modal-magnitude');
 
 	//add event listeners to DOM elements and bind them to the object's namespace
 	this.signInButton.addEventListener('click', this.signIn.bind(this));
@@ -26,7 +30,7 @@ function WhoUB() {
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
 
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
-	this.modalDelete.addEventListener('click', this.deleteSentiment(this));
+	this.modalDelete.addEventListener('click', this.deleteSentiment.bind(this));
 
 	$('.card-info').on('click', function(item){console.log(item)});
 	this.displaySentimentHistory.bind(this);
@@ -97,7 +101,12 @@ function WhoUB() {
 	this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));	//send any auth changes to Google's obj
 }
 
-WhoUB.prototype.deleteSentiment = function(){
+WhoUB.prototype.deleteSentiment = function(e){
+	console.log(this.texts);	
+	console.log($(e.target).attr("data-key"));
+	this.texts.splice($(e.target).attr("data-key"), 1);
+	console.log(this.texts);	
+	this.displaySentimentHistory();	
 	this.modal.foundation('close');
 }
 
@@ -109,7 +118,7 @@ WhoUB.prototype.closeModal = function(){
 WhoUB.prototype.displaySentimentHistory = function(){
 	$('#sentiments-eq').html("");
 	let sentimentContainer, calloutClass, curSentiment;
-	for(key in this.texts.reverse()){
+	for(key in this.texts){
 		sentimentContainer = $('<div class="medium-3 cell">');
 		calloutClass = "secondary";
 		if(this.texts[key].score >.6 && this.texts[key].magnitude > 1){
@@ -119,12 +128,16 @@ WhoUB.prototype.displaySentimentHistory = function(){
 		}
 
 		curSentiment = sentimentContainer.html($('<div class="card-info" data-equalizer-watch '+
+			//evenlistener to handle user clicking a sentiment snippet
 			'data-key="' + key + '">').click(function(e){
-					let snippetToExpand = this.texts[$(e.currentTarget).attr("data-key")];
-					$('#modal-text').html(snippetToExpand.text);
-					$('#modal-date').html(snippetToExpand.time);
-					$('#modal-score').html(snippetToExpand.score);
-					$('#modal-magnitude').html(snippetToExpand.magnitude);
+					let curSnippet = $(e.currentTarget).attr("data-key");
+					let snippetToExpand = this.texts[curSnippet];
+					//put the current sentiment info in the modal				
+					this.modalText.html(snippetToExpand.text);
+					this.modalDate.html(snippetToExpand.time);
+					this.modalScore.html(snippetToExpand.score);
+					this.modalMagnitude.html(snippetToExpand.magnitude);
+					$(this.modalDelete).attr('data-key', curSnippet)
 					this.modal.foundation('open');
 					console.log(snippetToExpand);
 			}.bind(this)) //Wrap data in a card and add key as attribute
@@ -133,7 +146,7 @@ WhoUB.prototype.displaySentimentHistory = function(){
 			.append($('<div class="card-info-content">').html('<p>'+this.texts[key].text+'</p>'))//inject text
 		);
 
-		$('#sentiments-eq').append(curSentiment);					//append the card to whats already there
+		$('#sentiments-eq').prepend(curSentiment);					//append the card to whats already there
 	}
 }
 

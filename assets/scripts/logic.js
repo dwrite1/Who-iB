@@ -182,16 +182,13 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 	}
 
 	//calculate if the text is over the amount;
-	// var minimumLength = 600;
-	// if (combinedText.length > minimumLength) {
-	// 	alert("You need more text to get an accurate read on your personality");
-	// 	return;
-	// }
+	//should use a modal on this
+	var minimumLength = 600;
+	if (combinedText.length < minimumLength) {
+		alert("You need more text to get an accurate read on your personality");
+		return;
+	}
 
-	if (!combinedText) return;
-
-	console.log("Waiting for response");
-	
 	$.ajax({
 		url: 'https://watson-easy.herokuapp.com/profile',
 		type: 'POST',
@@ -200,16 +197,13 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 			content: combinedText
 		}
 	}).done(res => {
-		console.log("finished");
-
 		var personalityDiv = $("#personality");
-
 
 		for (var i = 0; i < res.personality.length; i++) {
 			var personality = res.personality[i];
 			var personalityInfo = $("<div>");
 
-			//add children to div later
+			//add children to div 
 			var personalityName = $("<p>").html(personality.name);
 			var personalityPercentile = $("<p>").html(personality.percentile);
 

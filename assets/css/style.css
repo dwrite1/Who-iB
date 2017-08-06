@@ -21,6 +21,17 @@ h1{
 	color: grey;
 }
 
+.personality-profile-block{
+  margin-top: 10px;
+  padding-top: 10px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffb76b+0,ffa73d+50,ff7c00+51,ff7f04+100&0.25+0,0.25+100 */
+background: -moz-linear-gradient(-45deg,  rgba(255,183,107,0.25) 0%, rgba(255,167,61,0.25) 50%, rgba(255,124,0,0.25) 51%, rgba(255,127,4,0.25) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(255,183,107,0.25) 0%,rgba(255,167,61,0.25) 50%,rgba(255,124,0,0.25) 51%,rgba(255,127,4,0.25) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(255,183,107,0.25) 0%,rgba(255,167,61,0.25) 50%,rgba(255,124,0,0.25) 51%,rgba(255,127,4,0.25) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffb76b', endColorstr='#40ff7f04',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
 /*Foundation Building Block*/
 
 .card-info {
@@ -589,11 +600,12 @@ h1{
   width: 100%;
   font-size: 1.875rem;
   position: absolute;
+  top: 1%;
 }
 
 @media print, screen and (min-width: 40em) {
   .bar-graph .percent {
-    font-size: 3.875rem;
+    font-size: 2rem;
   }
 }
 

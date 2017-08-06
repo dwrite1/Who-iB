@@ -17,6 +17,14 @@
 
 }
 
+.user-submit-box {
+  border-color: white !important;
+}
+
+#input-text {
+  border: 1px solid #ccc;
+}
+
 h1{
 	color: grey;
 }

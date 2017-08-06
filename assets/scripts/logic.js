@@ -183,16 +183,13 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 	}
 
 	//calculate if the text is over the amount;
-	// var minimumLength = 600;
-	// if (combinedText.length > minimumLength) {
-	// 	alert("You need more text to get an accurate read on your personality");
-	// 	return;
-	// }
+	//should use a modal on this
+	var minimumLength = 600;
+	if (combinedText.length < minimumLength) {
+		alert("You need more text to get an accurate read on your personality");
+		return;
+	}
 
-	if (!combinedText) return;
-
-	console.log("Waiting for response");
-	
 	$.ajax({
 		url: 'https://watson-easy.herokuapp.com/profile',
 		type: 'POST',
@@ -205,6 +202,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		console.log(res);
 		console.log("personality: ");
 		console.log(res.personality);
+
 		var personalityDiv = $("#personality");
 		let oPercent = Math.floor(res.personality[0].percentile*100);
 		let cPercent = Math.floor(res.personality[1].percentile*100);
@@ -227,7 +225,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 			var personality = res.personality[i];
 			var personalityInfo = $("<div>");
 
-			//add children to div later
+			//add children to div 
 			var personalityName = $("<p>").html(personality.name);
 			var personalityPercentile = $("<p>").html(personality.percentile);
 
@@ -240,7 +238,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 WhoUB.prototype.analyzeText = function(e) {
 	e.preventDefault();
 	var inputText = this.inputText.val().trim();
-	if (inputText != "") { //make sure user typed something
+	if (!inputText) { //make sure user typed something
 		var settings = { //settings to make a CORS call to NLP
 			"async": true,
 			"crossDomain": true,

@@ -17,7 +17,7 @@
 			<div class="top-bar" data-sticky data-margin-top="0" id="example-menu">
 				<div class="top-bar-left">
 					<ul class="menu">
-						<li class="menu-text">WhoIB</li>
+						<li class="menu-text">WHOiB</li>
 					</ul>
 				</div>
 				<div class="top-bar-right">
@@ -28,19 +28,18 @@
 								<button id="sign-out" class="alert button">Sign Out</button>
 					</ul>
 				</div>
-
 			</div>
 		</div>
-	</div>
-	<!-- Add content where magellan will be linked -->
-	<div class="sections">
-		<section id="first" data-magellan-target="first">
-			<!-- only show if user is logged out -->
-			<div id="logged-out-stuff">
-				<div class="callout large">
-					<h5>Please sign in to begin your inner journey</h5>
-					<p>If you do not have an account, simply click the Google sign-in button and we will automatically create one for you.</p>
-					<a href="#" id="login-button"><img src="assets/img/btn_google.png"></a>
+		<!-- Add content where magellan will be linked -->
+		<div class="sections">
+			<section id="first" data-magellan-target="first">
+				<!-- only show if user is logged out -->
+				<div id="logged-out-stuff">
+					<div class="callout large">
+						<h5>Please sign in to begin your inner journey</h5>
+						<p>If you do not have an account, simply click the Google sign-in button and we will automatically create one for you.</p>
+						<a href="#" id="login-button"><img src="assets/img/btn_google.png"></a>
+					</div>
 				</div>
 				<!-- only show if user is authorized -->
 				<div id="logged-in-stuff">
@@ -66,7 +65,7 @@
 													<div class="profile-card-about">
 														<h5 class="about-title separator-left">Your Personality</h5>
 														<p id="profile-text" class="about-content">
-															We can get your full personality profile after we have at least 625 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
+															We can get your full personality profile after we have at least 600 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
 														</p>
 														<div class="grid-x grid-padding-x about-skills">
 															<div class="small-6 cells">
@@ -119,8 +118,8 @@
 											</ul>
 											<hr>
 											</div>
-
 										</div>
+										<!-- End of Personality Block -->
 									</div>
 															</div>
 															<!-- Text entry Section -->
@@ -142,8 +141,8 @@
 										<div class="grid-x medium-collapse user-action-container">
 										<div class="small-12 medium-7 cell">
 											        <span class="form-error">
-          Please enter some text before submitting,
-        </span>
+											          Please enter some text before submitting,
+											        </span>
 										</div>
 											<div class="small-12 medium-5 cell">
 												<div class="user-submit-box">
@@ -209,14 +208,11 @@
 												<img src="">
 											</div>
 										</div>
-
-										<button id="getPersonality" class="button">Analyze Personality</button>
 									</div>
 										<div class="callout-section"><h3><strong>*</strong><small> <span class="alert label">Red</span> means the text has a negative tone, <span class="success label">Green</span> is positive and <span class="secondary label">Grey</span> is neutral</small></h3></div>
 
 								</div>
 							</div>
-
 						</div>
 
 				<!-- end of logged-in stuff -->
@@ -237,10 +233,42 @@
 								</div>
 								<p>Aristotle</p>
 							</div>
-
 						</div>
-						<!-- End of Personality Block -->
+						<p>
+							<h1>About Our Software</h1>
+							Self-reflection can be a fruitful and and worthwhile endeavor, but without quantitative input, it can lead to self-deprecation.
+							With advances in natural language processing, self-assessments can be quantified and lead to concrete goals for improvement
+							or just a better understanding of one’s personality traits. WhoIB can take your text interactions and thoughts to give
+							you a snapshot of your tone. In the long-term, we will build a personality profile that will give you insights into
+							Who U B.
+						</p>
 					</div>
+					<br><br>
+					<!--  -->
+					<section class="marketing-site-three-up">
+						<h2 class="marketing-site-three-up-headline">How do we do it all?</h2>
+						<div class="grid-x grid-padding-x medium-unstack">
+							<div class="cells medium-3 medium-offset-1">
+								<i class="fa fa-gg" aria-hidden="true"></i>
+								<h4 class="marketing-site-three-up-title">Security</h4>
+								<p class="marketing-site-three-up-desc">We only use Google API using OAuth 2.0 as a way to verify users to ensure a simple and secure environment for all
+								your data.</p>
+							</div>
+							<div class="cells medium-3">
+								<i class="fa fa-user-o" aria-hidden="true"></i>
+								<h4 class="marketing-site-three-up-title">Storage</h4>
+								<p class="marketing-site-three-up-desc">Firebase is built on Google infrastructure and scales automatically to accommodate you, no matter how much text you
+								send us.</p>
+							</div>
+							<div class="cells medium-3">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+								<h4 class="marketing-site-three-up-title">Reliable Data</h4>
+								<p class="marketing-site-three-up-desc">Watson Developer Cloud service lets you understand different individual’s personality characteristics, solely based
+								on text analysis.</p>
+							</div>
+						</div>
+					</section>
+					<!--  -->
 				</div>
 			</section>
 			<section id="third" data-magellan-target="third">
@@ -257,12 +285,11 @@
 									</p>
 								</div>
 							</div>
-
 						</div>
-					</div>
-					<div class="medium-3 cell">
-						<div class="callout" data-equalizer-watch>
-							<p>Pellentesque habitant morbi tristique senectus et netus et, ante.</p>
+						<div class="small-12 medium-4 cells small-order-1 medium-order-2 mailing-container">
+							<h4 class="mailing-list">Join our mailing list</h4>
+							<input type="text" placeholder="Email Address">
+							<a class="button expanded subscribe-button" href="#">Subscribe Now</a>
 						</div>
 					</div>
 					<div class="grid-x tag-search">
@@ -287,7 +314,7 @@
 			<!-- Modals -->
 			<div class="reveal" id="wordWarningModal" data-reveal>
 				<h3 class="subheader">Not Enough Words for Personality Profile</h3>
-				<p id="modal-text">Please enter something for us to analyze.</p>
+				<p>Please enter something for us to analyze.</p>
 				<button class="close-button" data-close aria-label="Close reveal" type="button">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -298,111 +325,15 @@
 				<p class="lead">On <span id="modal-date"></span> you said:</p>
 				<p id="modal-text"></p>
 				<p>
-					<h1>About Our Software</h1>
-					Self-reflection can be a fruitful and and worthwhile endeavor, but without quantitative input, it can lead to self-deprecation.
-					With advances in natural language processing, self-assessments can be quantified and lead to concrete goals for improvement
-					or just a better understanding of one’s personality traits. WhoIB can take your text interactions and thoughts to give
-					you a snapshot of your tone. In the long-term, we will build a personality profile that will give you insights into
-					Who U B.
+					<button id="modal-delete-button" class="alert button">Delete</button>
+					<button id="modal-close-button" class="primary button">Close</button>
 				</p>
+				<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<br><br>
-			<!--  -->
-			<section class="marketing-site-three-up">
-				<h2 class="marketing-site-three-up-headline">How do we do it all?</h2>
-				<div class="grid-x grid-padding-x medium-unstack">
-					<div class="cells medium-3 medium-offset-1">
-						<i class="fa fa-gg" aria-hidden="true"></i>
-						<h4 class="marketing-site-three-up-title">Security</h4>
-						<p class="marketing-site-three-up-desc">We only use Google API using OAuth 2.0 as a way to verify users to ensure a simple and secure environment for all your
-							data.
-						</p>
-					</div>
-					<div class="cells medium-3">
-						<i class="fa fa-user-o" aria-hidden="true"></i>
-						<h4 class="marketing-site-three-up-title">Storage</h4>
-						<p class="marketing-site-three-up-desc">Firebase is built on Google infrastructure and scales automatically to accommodate you, no matter how much text you
-							send us.</p>
-					</div>
-					<div class="cells medium-3">
-						<i class="fa fa-check-square-o" aria-hidden="true"></i>
-						<h4 class="marketing-site-three-up-title">Reliable Data</h4>
-						<p class="marketing-site-three-up-desc">Watson Developer Cloud service lets you understand different individual’s personality characteristics, solely based
-							on text analysis.</p>
-					</div>
-				</div>
-			</section>
-			<!--  -->
 		</div>
-
-	</section>
-	<section id="third" data-magellan-target="third">
-		<!-- footer from foundation building blocks -->
-		<footer class="responsive-blog-footer">
-			<div class="grid-x">
-				<div class="medium-8 cells small-order-2 medium-order-1 about-container">
-					<div class="grid-x grid-padding-x">
-						<div class="medium-8 cells about-section">
-							<h4> Contact Us</h4>
-							<p>#TeamDavid builds awesome apps using HTML, jQuery, CSS, and Javascript. We pull together the latest APIs from IBM
-								Watson and Google Natural Language Processing to bring you an informative experience. Contact us if you need any
-								information.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="small-12 medium-4 cells small-order-1 medium-order-2 mailing-container">
-					<h4 class="mailing-list">Join our mailing list</h4>
-					<input type="text" placeholder="Email Address">
-					<a class="button expanded subscribe-button" href="#">Subscribe Now</a>
-				</div>
-			</div>
-			<div class="grid-x tag-search">
-				<div class="cells">
-					<h4>Contact Info</h4>
-					<ul class="menu simple tag-section">
-						<li><a href="">JacobCThomas@Outlook.com</a></li>
-						<li><a href="">713-777-7777</a></li>
-						<li><a href="">Houston, TX</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="grid-x cells flex-container align-justify">
-				<p> all rights reserved</p>
-				<div class="up-arrow">
-					<a href="#top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-				</div>
-			</div>
-		</footer>
-		<!-- end foundation footer -->
-	</section>
-	<!-- Modals -->
-
-	<!-- Sentiment Modal -->
-	<div class="reveal" id="sentimentModal" data-reveal>
-		<p>Score: <span id="modal-score" class="badge"></span> Magnitude:
-			<span id="modal-magnitude" class="secondary badge"></span></p>
-		<p>
-			<button id="modal-delete-button" class="alert button">Delete</button>
-			<button id="modal-close-button" class="primary button">Close</button>
-		</p>
-		<p class="lead">On <span id="modal-date"></span> you said:</p>
-		<p id="modal-text"></p>
-		<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
-	</div>
-
-	<!-- Alert Modal -->
-	<div class="reveal" id="alertModal" data-reveal>
-		<p>Please enter more text to get a read on your personality</p>
-		<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
-		<button id="modal-close-button" class="primary button">Close</button>
-	</div>
-	</div>
-	<!-- 		<script type="text/javascript" src="assets/scripts/dummyData.js"></script> -->
-	<script type="text/javascript" src="assets/scripts/logic.js"></script>
-	<script src="assets/js/vendor/what-input.js"></script>
-	<script src="assets/js/vendor/foundation.js"></script>
-	<script src="assets/js/app.js"></script>
-</body>
-
+		<script type="text/javascript" src="assets/scripts/logic.js"></script>
+		<script src="assets/js/vendor/what-input.js"></script>
+		<script src="assets/js/vendor/foundation.js"></script>
+		<script src="assets/js/app.js"></script>
+	</body>
 </html>

@@ -73,7 +73,6 @@
 function WhoUB() {
 	//get DOM elements
 	this.sendText = document.getElementById('send-text');
-	this.getPersonality = document.getElementById("getPersonality");
 	this.signInButton = document.getElementById('login-button');
 	this.signOutButton = document.getElementById('sign-out');
 	this.modalDelete = document.getElementById('modal-delete-button');
@@ -109,7 +108,6 @@ function WhoUB() {
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
 	this.modalDelete.addEventListener('click', this.deleteSentiment.bind(this));
-	this.getPersonality.addEventListener("click", this.analyzezPersonality.bind(this));
 
 	$('.card-info').on('click', function(item) {
 		console.log(item);
@@ -123,7 +121,6 @@ function WhoUB() {
 		this.magnitude = magnitude;
 	}
 	this.texts = []; 				//holds all user texts
-
 	//current user info
 	this.uid = null, this.profilePicUrl = "", this.userName = "";
 
@@ -141,8 +138,8 @@ function WhoUB() {
 	this.storage = firebase.storage();
 	this.auth = firebase.auth();
 	this.database = firebase.database();
-	this.users = 'users/'; //location of all users
-	this.snippets = 'snippets/'; //location of all analyzed text
+	this.users = 'users/'; 			//location of all users
+	this.snippets = 'snippets/'; 	//location of all analyzed text
 	this.loginDiv.hide();
 	$(this.signOutButton).hide();
 	this.wordWarning.hide();
@@ -154,7 +151,6 @@ function WhoUB() {
 			this.loginDiv.hide(); 	// hide login button
 			this.profileDiv.show(); $(this.signOutButton).show();
 			this.uid = user.uid; 	// get user info from google auth
-
 			this.profilePicUrl = user.photoURL;
 			this.userName = user.displayName;
 
@@ -265,10 +261,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 	//should use a modal on this
 	var minimumLength = 600;
 	if (combinedText.length < minimumLength) {
-		//this.wordWarning.show();
-		$('#alertModal').foundation('open');
-		$("#alertModal button").click(() => $("#alertModal").foundation("close"));
-
+		this.wordWarning.show();
 		return;
 	}
 
@@ -292,7 +285,6 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		$('#extraversion-graph').attr("style", 'height:'+ePercent+'%;');
 		$('#agreeableness-graph').attr("style", 'height:'+aPercent+'%;');
 		$('#emotional-graph').attr("style", 'height:'+emPercent+'%;');
-
 		$('#o-percent').html(oPercent);
 		$('#c-percent').html(cPercent);
 		$('#e-percent').html(ePercent);
@@ -327,16 +319,17 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 			aPersonality = res.personality[personalityIndex].name;
 			for(facetIndex in (facet = res.personality[personalityIndex].children)){
 				curFacet = facet[facetIndex].name;
-				if (facet[facetIndex].raw_score > .5) {
-					bio += PERSONALITY_GRID[aPersonality][facet[facetIndex].name][1] + " ";
-				}else {
-					bio += PERSONALITY_GRID[aPersonality][facet[facetIndex].name][0] + " ";
+				if(facet[facetIndex].percentile > .5){
+					if (facet[facetIndex].raw_score > .5) {
+						bio += PERSONALITY_GRID[aPersonality][facet[facetIndex].name][1] + " ";
+					}else {
+						bio += PERSONALITY_GRID[aPersonality][facet[facetIndex].name][0] + " ";
+					}
 				}
 			}
 			bio += "<br>";
 		}
 		this.profileText.html(bio);
-
 	});
 }
 
@@ -384,12 +377,9 @@ WhoUB.prototype.pushToFirebase = function() {
 	let uName = this.userName;
 	let uPic = this.profilePicUrl;
 	let uTexts = this.texts;
-	this.database.ref(this.users + this.uid).set({
-		uName,
-		uPic,
-		uTexts
-	});
+	this.database.ref(this.users + this.uid).set({uName, uPic, uTexts});
 	this.displaySentimentHistory();
+	this.analyzezPersonality();
 }
 
 $(document).ready(function() {

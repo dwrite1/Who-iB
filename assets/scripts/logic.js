@@ -81,14 +81,6 @@ function WhoUB() {
 						console.log("account doesn't exist");
 						//write to firebase
 						this.pushToFirebase();
-						// let uName = this.userName; //new vars b/c set doesn't like dots
-						// let uPic = this.profilePicUrl;
-						// let uTexts = this.texts;
-						// this.database.ref(this.users + this.uid).set({
-						// 	uName,
-						// 	uPic,
-						// 	uTexts
-						// });
 						//write user info into firebase
 					} else { //user exists, get their info    		
 						console.log(snapshot.val().uName + " is in our Database");
@@ -221,17 +213,6 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		$('#e-percent').html(ePercent);
 		$('#a-percent').html(aPercent);
 		$('#em-percent').html(emPercent);
-
-		// for (var i = 0; i < res.personality.length; i++) {
-		// 	var personality = res.personality[i];
-		// 	var personalityInfo = $("<div>");
-
-		// 	//add children to div 
-		// 	var personalityName = $("<p>").html(personality.name);
-		// 	var personalityPercentile = $("<p>").html(personality.percentile);
-
-		// 	personalityDiv.append(personalityName, personalityPercentile);
-		// }
 	});
 }
 
@@ -266,16 +247,6 @@ WhoUB.prototype.analyzeText = function(e) {
 			this.texts.push(newSnip); //put user input into texts array
 			//write to firebase
 			this.pushToFirebase();
-			// let uName = this.userName;
-			// let uPic = this.profilePicUrl;
-			// let uTexts = this.texts;
-			// this.database.ref(this.users + this.uid).set({
-			// 	uName,
-			// 	uPic,
-			// 	uTexts
-			// });
-			// //empty out input box and show new text in container
-			// this.displaySentimentHistory();
 			this.inputText.val("");
 		}.bind(this));
 	}

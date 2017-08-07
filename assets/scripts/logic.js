@@ -185,8 +185,9 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 	//calculate if the text is over the amount;
 	//should use a modal on this
 	var minimumLength = 600;
-	if (combinedText.length < minimumLength) {
-		alert("You need more text to get an accurate read on your personality");
+	if (combinedText.length < minimumLength)
+	{
+		$('#alertModal').foundation('open');
 		return;
 	}
 
@@ -221,16 +222,16 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		$('#a-percent').html(aPercent);
 		$('#em-percent').html(emPercent);
 
-		for (var i = 0; i < res.personality.length; i++) {
-			var personality = res.personality[i];
-			var personalityInfo = $("<div>");
+		// for (var i = 0; i < res.personality.length; i++) {
+		// 	var personality = res.personality[i];
+		// 	var personalityInfo = $("<div>");
 
-			//add children to div 
-			var personalityName = $("<p>").html(personality.name);
-			var personalityPercentile = $("<p>").html(personality.percentile);
+		// 	//add children to div 
+		// 	var personalityName = $("<p>").html(personality.name);
+		// 	var personalityPercentile = $("<p>").html(personality.percentile);
 
-			personalityDiv.append(personalityName, personalityPercentile);
-		}
+		// 	personalityDiv.append(personalityName, personalityPercentile);
+		// }
 	});
 }
 
@@ -292,8 +293,4 @@ WhoUB.prototype.pushToFirebase = function() {
 $(document).ready(function() {
 	var x = new WhoUB();
 	x.analyzezPersonality();
-
-	$(document).click(() => {
-		x.analyzezPersonality();
-	});
 });

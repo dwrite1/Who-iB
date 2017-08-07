@@ -42,7 +42,7 @@ function WhoUB() {
 		this.score = score;
 		this.magnitude = magnitude;
 	}
-	this.texts = []; 				//holds all user input
+	this.texts = []; //holds all user input
 	//current user info
 	this.uid = null, this.profilePicUrl = "", this.userName = "";
 
@@ -60,17 +60,17 @@ function WhoUB() {
 	this.storage = firebase.storage();
 	this.auth = firebase.auth();
 	this.database = firebase.database();
-	this.users = 'users/'; 			//location of all users
-	this.snippets = 'snippets/'; 	//location of all analyzed text
+	this.users = 'users/'; //location of all users
+	this.snippets = 'snippets/'; //location of all analyzed text
 	this.loginDiv.hide();
 	this.profileDiv.hide();
 
 	//called when someone logs in or out
 	this.onAuthStateChanged = function(user) {
-		if (user) { 				// User is signed in!
-			this.loginDiv.hide(); 	// hide login button
+		if (user) { // User is signed in!
+			this.loginDiv.hide(); // hide login button
 			this.profileDiv.show();
-			this.uid = user.uid; 	// get user info from google auth
+			this.uid = user.uid; // get user info from google auth
 			this.profilePicUrl = user.photoURL;
 			this.userName = user.displayName;
 
@@ -185,9 +185,9 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 	//calculate if the text is over the amount;
 	//should use a modal on this
 	var minimumLength = 600;
-	if (combinedText.length < minimumLength)
-	{
+	if (combinedText.length < minimumLength) {
 		$('#alertModal').foundation('open');
+		$("#alertModal button").click(() => $("#alertModal").foundation("close"));
 		return;
 	}
 
@@ -205,17 +205,17 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		console.log(res.personality);
 
 		var personalityDiv = $("#personality");
-		let oPercent = Math.floor(res.personality[0].percentile*100);
-		let cPercent = Math.floor(res.personality[1].percentile*100);
-		let ePercent = Math.floor(res.personality[2].percentile*100);
-		let aPercent = Math.floor(res.personality[3].percentile*100);
-		let emPercent = Math.floor(res.personality[4].percentile*100);
+		let oPercent = Math.floor(res.personality[0].percentile * 100);
+		let cPercent = Math.floor(res.personality[1].percentile * 100);
+		let ePercent = Math.floor(res.personality[2].percentile * 100);
+		let aPercent = Math.floor(res.personality[3].percentile * 100);
+		let emPercent = Math.floor(res.personality[4].percentile * 100);
 
-		$('#openness-graph').attr("style", 'height:'+oPercent+'%;');
-		$('#conscientiousness-graph').attr("style", 'height:'+cPercent+'%;');
-		$('#extraversion-graph').attr("style", 'height:'+ePercent+'%;');
-		$('#agreeableness-graph').attr("style", 'height:'+aPercent+'%;');
-		$('#emotional-graph').attr("style", 'height:'+emPercent+'%;');
+		$('#openness-graph').attr("style", 'height:' + oPercent + '%;');
+		$('#conscientiousness-graph').attr("style", 'height:' + cPercent + '%;');
+		$('#extraversion-graph').attr("style", 'height:' + ePercent + '%;');
+		$('#agreeableness-graph').attr("style", 'height:' + aPercent + '%;');
+		$('#emotional-graph').attr("style", 'height:' + emPercent + '%;');
 		$('#o-percent').html(oPercent);
 		$('#c-percent').html(cPercent);
 		$('#e-percent').html(ePercent);
@@ -286,7 +286,11 @@ WhoUB.prototype.pushToFirebase = function() {
 	let uName = this.userName;
 	let uPic = this.profilePicUrl;
 	let uTexts = this.texts;
-	this.database.ref(this.users + this.uid).set({uName, uPic, uTexts});
+	this.database.ref(this.users + this.uid).set({
+		uName,
+		uPic,
+		uTexts
+	});
 	this.displaySentimentHistory();
 }
 

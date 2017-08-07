@@ -3,6 +3,7 @@
 function WhoUB() {
 	//get DOM elements
 	this.sendText = document.getElementById('send-text');
+	this.getPersonality = document.getElementById("getPersonality");
 	this.signInButton = document.getElementById('login-button');
 	this.signOutButton = document.getElementById('sign-out');
 	this.modalDelete = document.getElementById('modal-delete-button');
@@ -30,6 +31,7 @@ function WhoUB() {
 	this.sendText.addEventListener('click', this.analyzeText.bind(this));
 	this.modalClose.addEventListener('click', this.closeModal.bind(this));
 	this.modalDelete.addEventListener('click', this.deleteSentiment.bind(this));
+	this.getPersonality.addEventListener("click", this.analyzezPersonality.bind(this));
 
 	$('.card-info').on('click', function(item) {
 		console.log(item)

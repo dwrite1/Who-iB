@@ -1,20 +1,43 @@
-﻿section .callout{
+﻿body {
+  background-image: url(../img/sayagata-400px.png) !important;
+}
+
+#logged-out-stuff {
+  background-color: whitesmoke;
+}
+
+section .callout{
 	border: none;
 	margin: 0;
+  background-color: rgba(255,255,255,0);
 }
+
 #sentiments-eq .cell .callout{
 	max-height: 300px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
+
 #second .callout{
 	color: white;
 	background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 }
+
 #second .callout blockquote, #second .callout cite {
 	color: whitesmoke;
+}
 
+.big-five{
+  text-transform: uppercase;
+}
+
+.big-five::after{
+  position: relative;
+  width: 3rem;
+  border-bottom: 0.125rem solid #1779ba;
+  margin: 0.3rem auto 0;
+  margin-left: 0;
 }
 
 .user-submit-box {
@@ -481,6 +504,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffb76b', e
   }
 }
 
+.travel-feature-text {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .travel-feature-card-price {
   text-align: right;
 }
@@ -619,6 +647,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffb76b', e
 
 .bar-graph .percent span {
   font-size: 1.875rem;
+  color: ghostwhite;
 }
 
 .bar-graph .description {
@@ -757,6 +786,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffb76b', e
 
 .profile-card-action-icons .card-section .profile-card-about .about-skills {
   margin-top: 0.6rem;
+  margin-left: 0.3rem;
 }
 
 .profile-card-action-icons .card-section .profile-card-about .about-skills ul.arrow {

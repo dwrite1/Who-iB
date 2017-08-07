@@ -25,6 +25,7 @@
 						<li><a href="#first">My Profile</a></li>
 						<li><a href="#second">About</a></li>
 						<li><a href="#third">Contact</a></li>
+								<button id="sign-out" class="alert button">Sign Out</button>
 					</ul>
 				</div>
 			</div>
@@ -43,24 +44,107 @@
 				<!-- only show if user is authorized -->
 				<div id="logged-in-stuff">
 						<div class="callout-divider clearfix columns">
-							<h3 class="float-left">Welcome, <span id="user-welcome"></span></h3>
 							<br class="show-for-small-only">
-							<span class="float-right">
-								<button id="sign-out" class="alert button">Sign Out</button>
-							</span></div><br>
+
+								 							<div class="personality-profile-block">
+
+									<div id="personality" class="grid-x grid-padding-x">
+										<!-- Personality raphs from Foundation Block -->
+										<div class="cell small-12 medium-7" id="stick-to-me">
+											<div class="card profile-card-action-icons">
+												<div class="card-section">
+													<div class="profile-card-header">
+														<div class="profile-card-avatar">
+															<img id="profile-image" class="avatar-image" src="" alt="">
+														</div>
+														<div class="profile-card-author">
+															<h5 id="profile-username" class="author-title"></h5>
+															<p class="author-description">Personality Profile<span id="profile-trait"></span></p>
+														</div>
+													</div>
+													<div class="profile-card-about">
+														<h5 class="about-title separator-left">Your Personality</h5>
+														<p id="profile-text" class="about-content">
+															We can get your full personality profile after we have at least 625 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
+														</p>
+														<div class="grid-x grid-padding-x about-skills">
+															<div class="small-6 cells">
+																<h5 class="about-title separator-left">Your Values</h5>
+																<ul id="user-values" class="arrow">
+																	<li></li>
+																</ul>
+															</div>
+															<div class="small-6 cells">
+																<h5 class="about-title separator-left">Your Needs</h5>
+																<ul id="user-needs" class="arrow">
+																	<li></li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+      <div id="wordWarningAlert" class="alert callout" data-closable >
+        <p><i class="fi-alert"></i> Please send us 600 words to get an accurate personality assessment.</p>
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+      </div>											
+										</div>
+										<div class="cell small-12 medium-5" data-sticky-container >
+										<div class="sticky" data-margin-top="6" data-sticky data-anchor="stick-to-me">
+												<h5 class="big-five separator-left">Big Five Personality Traits</h5>
+											<ul class="bar-graph">
+												<li id="openness-graph" class="bar primary" style="height: 100%;" >
+													<div class="percent"><span id="o-percent">0</span><span>%</span></div>
+													<div class="description">Openness</div>
+												</li>
+												<li id="conscientiousness-graph" class="bar secondary" style="height: 100%;">
+													<div class="percent"><span id="c-percent">0</span><span>%</span></div>
+													<div class="description">Vigilance</div>   <!-- Conscientiousness -->
+												</li>
+												<li id="extraversion-graph" class="bar success" style="height: 100%;">
+													<div class="percent"><span id="e-percent">0</span><span>%</span></div>
+													<div class="description">Extraversion</div>
+												</li>
+												<li id="agreeableness-graph" class="bar warning" style="height: 100%;">
+													<div class="percent"><span id="a-percent">0</span><span>%</span></div>
+													<div class="description">Agreeableness</div>
+												</li>
+												<li id="emotional-graph" class="bar alert" style="height: 100%;">
+													<div class="percent"><span id="em-percent">0</span><span>%</span></div>
+													<div class="description">Emotional<br> Range</div>
+												</li>
+											</ul>
+											<hr>
+											</div>
+										</div>
+										<!-- End of Personality Block -->
+									</div>
+															</div>
+															<!-- Text entry Section -->
+								<div class="callout"><h3 class="subheader">Your sentiment snapshot:</h3></div>
 							<div class="grid-x grid-padding-x">
 								<div class="small-12 medium-6 cell">
 									<div class="status-update-input-box">
-										<form>
+										<form data-abide novalidate >
 											<div class="row input-box-container">
 												<div class="columns">
-													<label> <!-- Add a Label here to give this input box a heading -->
-													<textarea id="input-text" rows="5" placeholder="Enter some text and hit Analyze."></textarea>
+													<label> 
+												        <span class="form-error">
+          													Please enter some text before submitting,
+        												</span>
+													<textarea id="input-text" rows="5" required placeholder="Enter some text and hit Analyze."></textarea>
 												</label>
 											</div>
 										</div>
-										<div class="row medium-collapse user-action-container">
-											<div class="small-12 medium-5 columns">
+										<div class="grid-x medium-collapse user-action-container">
+										<div class="small-12 medium-7 cell">
+											        <span class="form-error">
+          Please enter some text before submitting,
+        </span>
+										</div>
+											<div class="small-12 medium-5 cell">
 												<div class="user-submit-box">
 													<input type="submit" id="send-text" class="button small" value="ANALYZE">
 												</div>
@@ -69,6 +153,7 @@
 									</form>
 								</div>
 								<!-- end of block input -->
+							<br class="show-for-small-only">
 							</div>
 							<div class="small-12 medium-6 cell">
 								<!-- Foundation Block Card -->
@@ -82,7 +167,7 @@
 									</div>
 									<div class="travel-feature-card-details">
 										<h6 id="current-date" class="travel-feature-card-date-range"></h6>
-										<div class="grid-x grid-padding-x">
+										<div class="grid-x grid-padding-x travel-feature-text">
 											<div class="small-12 medium-8 cells travel-feature-card-content">
 												<h6 class="travel-feature-card-title">Your Text</h6>
 												<p id="current-text">Enter some text and click Analyze to see your current sentiment score.</p>
@@ -96,95 +181,12 @@
 								</div>
 								<!-- End of Card -->
 							</div>
-						</div>
-						<!-- 					<div class="row">
-							<div class="small-12 columns"> -->
-								 							<div class="personality-profile-block">
-									<!-- 								<div class="title-bar">Your Personality</div>
-																	<!-- <div class="callout-section"></div> -->
-									<div id="personality" class="grid-x grid-padding-x">
-										<!-- Personality raphs from Foundation Block -->
-										<div class="cell small-12 medium-6">
-											<div class="card profile-card-action-icons">
-												<div class="card-section">
-													<div class="profile-card-header">
-														<div class="profile-card-avatar">
-															<img id="profile-image" class="avatar-image" src="" alt="">
-														</div>
-														<div class="profile-card-author">
-															<h5 id="profile-username" class="author-title">Harry Manchanda</h5>
-															<p class="author-description">Strongest Trait <span id="profile-trait"></span></p>
-														</div>
+						</div>															
+															<!-- End of Text Entry -->
 													</div>
-													<div class="profile-card-about">
-														<h5 class="about-title separator-left">Your Personality</h5>
-														<p id="profile-text" class="about-content">
-															We can get your full personality profile after we have at least 625 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
-														</p>
-														<div class="grid-x grid-padding-x about-skills">
-															<div class="small-6 cells">
-																<ul class="arrow">
-																	<li>Coding</li>
-																	<li>Cricket</li>
-																	<li>Enjoying</li>
-																</ul>
-															</div>
-															<div class="small-6 cells">
-																<ul class="arrow">
-																	<li>Maths</li>
-																	<li>Dancing</li>
-																	<li>Smiling</li>
-																</ul>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<div class="cell small-12 medium-6">
-											<ul class="bar-graph">
-												<li class="bar-graph-axis">
-													<div class="bar-graph-label">100%</div>
-													<div class="bar-graph-label">80%</div>
-													<div class="bar-graph-label">60%</div>
-													<div class="bar-graph-label">40%</div>
-													<div class="bar-graph-label">20%</div>
-													<div class="bar-graph-label">0%</div>
-												</li>
-												<li id="openness-graph" class="bar primary" style="height: 0%;" >
-													<div class="percent"><span id="o-percent">0</span><span>%</span></div>
-													<div class="description">Openness</div>
-												</li>
-												<li id="conscientiousness-graph" class="bar secondary" style="height: 0%;">
-													<div class="percent"><span id="c-percent">0</span><span>%</span></div>
-													<div class="description">Vigilance</div>   <!-- Conscientiousness -->
-												</li>
-												<li id="extraversion-graph" class="bar success" style="height: 0%;">
-													<div class="percent"><span id="e-percent">0</span><span>%</span></div>
-													<div class="description">Extraversion</div>
-												</li>
-												<li id="agreeableness-graph" class="bar warning" style="height: 0%;">
-													<div class="percent"><span id="a-percent">0</span><span>%</span></div>
-													<div class="description">Agreeableness</div>
-												</li>
-												<li id="emotional-graph" class="bar alert" style="height: 0%;">
-													<div class="percent"><span id="em-percent">0</span><span>%</span></div>
-													<div class="description">Emotional<br> Range</div>
-												</li>
-											</ul>
-											
-										</div>
-										<!-- End of Personality Block -->
-									</div>
-															</div>
-													</div>
-						</div>
 						<div class="row">
 							<div class="small-12 columns">
 								<div class="callout">
-									<div class="title-bar">Your Previous Tones</div>
-									<hr>
 									<div class="grid-x grid-padding-x" data-equalizer data-equalize-on="medium" id="sentiments-eq">
 										<div class="medium-3 cell">
 											<div class="callout" data-equalizer-watch>
@@ -193,7 +195,7 @@
 										</div>
 										<div class="medium-3 cell">
 											<div class="callout" data-equalizer-watch>
-												<p>Pellentesque habitant morbi tristique senectus et netus et, ante.</p>
+												<p></p>
 											</div>
 										</div>
 										<div class="medium-3 cell">
@@ -207,13 +209,14 @@
 											</div>
 										</div>
 									</div>
-									<div class="callout-section">You can find all your old tone queries here</div>
+										<div class="callout-section"><h3><strong>*</strong><small> <span class="alert label">Red</span> means the text has a negative tone, <span class="success label">Green</span> is positive and <span class="secondary label">Grey</span> is neutral</small></h3></div>
+
 								</div>
 							</div>
 						</div>
-<!-- 					</div>
- -->					<!-- end of callout
+
 				<!-- end of logged-in stuff -->
+				</div>
 			</section>
 			<!-- About Us Section -->
 			<section id="second" data-magellan-target="second">
@@ -275,7 +278,7 @@
 						<div class="medium-8 cells small-order-2 medium-order-1 about-container">
 							<div class="grid-x grid-padding-x">
 								<div class="medium-8 cells about-section">
-									<h4> Contact Us</h4>
+									<h4>What's up with us?</h4>
 									<p>#TeamDavid builds awesome apps using HTML, jQuery, CSS, and Javascript. We pull together the latest APIs from IBM
 										Watson and Google Natural Language Processing to bring you an informative experience. Contact us if you need any
 										information.
@@ -293,14 +296,14 @@
 						<div class="cells">
 							<h4>Contact Info</h4>
 							<ul class="menu simple tag-section">
-								<li><a href="">JacobCThomas@Outlook.com</a></li>
-								<li><a href="">713-777-7777</a></li>
+								<li><a href="mailto:JacobCThomas@Outlook.com">JacobCThomas@Outlook.com</a></li>
+								<li><a href="">713-517-3645</a></li>
 								<li><a href="">Houston, TX</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="grid-x cells flex-container align-justify">
-						<p> all rights reserved</p>
+						<p>©2017 all rights reserved</p>
 						<div class="up-arrow">
 							<a href="#top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
 						</div>
@@ -309,6 +312,13 @@
 				<!-- end foundation footer -->
 			</section>
 			<!-- Modals -->
+			<div class="reveal" id="wordWarningModal" data-reveal>
+				<h3 class="subheader">Not Enough Words for Personality Profile</h3>
+				<p id="modal-text">Please enter something for us to analyze.</p>
+				<button class="close-button" data-close aria-label="Close reveal" type="button">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 			<div class="reveal" id="sentimentModal" data-reveal>
 				<p>Score: <span id="modal-score" class="badge"></span> Magnitude:
 				<span id="modal-magnitude" class="secondary badge"></span></p>
@@ -321,7 +331,6 @@
 				<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
 		</div>
-<!-- 		<script type="text/javascript" src="assets/scripts/dummyData.js"></script> -->
 		<script type="text/javascript" src="assets/scripts/logic.js"></script>
 		<script src="assets/js/vendor/what-input.js"></script>
 		<script src="assets/js/vendor/foundation.js"></script>

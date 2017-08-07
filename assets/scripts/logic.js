@@ -127,7 +127,7 @@ function WhoUB() {
 	//firebase initialization
 	this.config = {
 		apiKey: "AIzaSyAq8BljGpg_85mt8OWD4ndWaQGxFnXVpIE",
-		authDomain: "bootcampproject1.firebaseapp.com",
+		//authDomain: "bootcampproject1.firebaseapp.com",
 		databaseURL: "https://bootcampproject1.firebaseio.com",
 		projectId: "bootcampproject1",
 		storageBucket: "bootcampproject1.appspot.com",

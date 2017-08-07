@@ -25,6 +25,11 @@
   border: 1px solid #ccc;
 }
 
+#logged-in-stuff > div {
+  margin-top: 10px;
+  padding: 5px;
+}
+
 h1{
 	color: grey;
 }

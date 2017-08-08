@@ -358,8 +358,13 @@ WhoUB.prototype.analyzeText = function(e) {
 		$.ajax(settings).done(function(response) {
 			let newSnip = new this.Snippet(inputText, response.documentSentiment.score,
 				response.documentSentiment.magnitude)
+			
+			var shortText = null;
+			if (newSnip.text.length > 400) 
+				shortText = newSnip.text.substring(0, 400) + "...";
+		
 			this.curDate.html(newSnip.time);
-			this.curText.html(newSnip.text);
+			this.curText.html(shortText || newSnip.text);
 			this.curScore.html(newSnip.score);
 			this.curMagnitude.html(newSnip.magnitude);
 			this.texts.push(newSnip); //put user input into texts array

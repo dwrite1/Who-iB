@@ -1,337 +1,347 @@
 ﻿<!doctype html>
 <html lang="en-us">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>WhoiB - Discover Yourself</title>
-		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-		<link rel="stylesheet" href="assets/css/foundation.min.css" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-		<script src="assets/js/vendor/jquery.js"></script>
-	</head>
-	<body>
-		<!-- Add a Sticky Menu -->
-		<div data-sticky-container>
-			<div class="top-bar" data-sticky data-margin-top="0" id="example-menu">
-				<div class="top-bar-left">
-					<ul class="menu">
-						<li class="menu-text">WHOiB</li>
-					</ul>
-				</div>
-				<div class="top-bar-right">
-					<ul class="menu" data-magellan>
-						<li><a href="#first">My Profile</a></li>
-						<li><a href="#second">About</a></li>
-						<li><a href="#third">Contact</a></li>
-								<button id="sign-out" class="alert button">Sign Out</button>
-					</ul>
-				</div>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WhoiB - Discover Yourself</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/foundation.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+	<script src="assets/js/vendor/jquery.js"></script>
+</head>
+
+<body>
+	<!-- Add a Sticky Menu -->
+	<div data-sticky-container>
+		<div class="top-bar" data-sticky data-margin-top="0" id="example-menu">
+			<div class="top-bar-left">
+				<ul class="menu">
+					<li class="menu-text">WHOiB</li>
+				</ul>
+			</div>
+			<div class="top-bar-right">
+				<ul class="menu" data-magellan>
+					<li><a href="#first">My Profile</a></li>
+					<li><a href="#second">About</a></li>
+					<li><a href="#third">Contact</a></li>
+					<button id="sign-out" class="alert button">Sign Out</button>
+				</ul>
 			</div>
 		</div>
-		<!-- Add content where magellan will be linked -->
-		<div class="sections">
-			<section id="first" data-magellan-target="first">
-				<!-- only show if user is logged out -->
-				<div id="logged-out-stuff">
-					<div class="callout large">
-						<h5>Please sign in to begin your inner journey</h5>
-						<p>If you do not have an account, simply click the Google sign-in button and we will automatically create one for you.</p>
-						<a href="#" id="login-button"><img src="assets/img/btn_google.png"></a>
-					</div>
+	</div>
+	<!-- Add content where magellan will be linked -->
+	<div class="sections">
+		<section id="first" data-magellan-target="first">
+			<!-- only show if user is logged out -->
+			<div id="logged-out-stuff">
+				<div class="callout large">
+					<h5>Please sign in to begin your inner journey</h5>
+					<p>If you do not have an account, simply click the Google sign-in button and we will automatically create one for you.</p>
+					<a href="#" id="login-button"><img src="assets/img/btn_google.png"></a>
 				</div>
-				<!-- only show if user is authorized -->
-				<div id="logged-in-stuff">
-						<div class="callout-divider clearfix columns">
-							<br class="show-for-small-only">
-								 							<div class="personality-profile-block">
-									<div id="personality" class="grid-x grid-padding-x">
-										<!-- Personality raphs from Foundation Block -->
-										<div class="cell small-12 medium-7" id="stick-to-me">
-											<div class="card profile-card-action-icons">
-												<div class="card-section">
-													<div class="profile-card-header">
-														<div class="profile-card-avatar">
-															<img id="profile-image" class="avatar-image" src="" alt="">
-														</div>
-														<div class="profile-card-author">
-															<h5 id="profile-username" class="author-title"></h5>
-															<p class="author-description">Personality Profile<span id="profile-trait"></span></p>
-														</div>
-													</div>
-													<div class="profile-card-about">
-														<h5 class="about-title separator-left">Your Personality</h5>
-														<p id="profile-text" class="about-content">
-															We can get your full personality profile after we have at least 600 words from you. Please keep adding snippets of texts below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the more text you add, the closer we will get to defining the real you.
-														</p>
-														<div class="grid-x grid-padding-x about-skills">
-															<div class="small-6 cells">
-																<h5 class="about-title separator-left">Your Values</h5>
-																<ul id="user-values" class="arrow">
-																	<li></li>
-																</ul>
-															</div>
-															<div class="small-6 cells">
-																<h5 class="about-title separator-left">Your Needs</h5>
-																<ul id="user-needs" class="arrow">
-																	<li></li>
-																</ul>
-															</div>
-														</div>
-													</div>
+			</div>
+			<!-- only show if user is authorized -->
+			<div id="logged-in-stuff">
+				<div class="callout-divider clearfix columns">
+					<br class="show-for-small-only">
+					<div class="personality-profile-block">
+						<div id="personality" class="grid-x grid-padding-x">
+							<!-- Personality raphs from Foundation Block -->
+							<div class="cell small-12 medium-7" id="stick-to-me">
+								<div class="card profile-card-action-icons">
+									<div class="card-section">
+										<div class="profile-card-header">
+											<div class="profile-card-avatar">
+												<img id="profile-image" class="avatar-image" src="" alt="">
+											</div>
+											<div class="profile-card-author">
+												<h5 id="profile-username" class="author-title"></h5>
+												<p class="author-description">Personality Profile<span id="profile-trait"></span></p>
+											</div>
+										</div>
+										<div class="profile-card-about">
+											<h5 class="about-title separator-left">Your Personality</h5>
+											<p id="profile-text" class="about-content">
+												We can get your full personality profile after we have at least 600 words from you. Please keep adding snippets of texts
+												below (and hit ANALYZE) periodically so we can build out an accurate behavioral map for you. Furthermore, the
+												more text you add, the closer we will get to defining the real you.
+											</p>
+											<div class="grid-x grid-padding-x about-skills">
+												<div class="small-6 cells">
+													<h5 class="about-title separator-left">Your Values</h5>
+													<ul id="user-values" class="arrow">
+														<li></li>
+													</ul>
+												</div>
+												<div class="small-6 cells">
+													<h5 class="about-title separator-left">Your Needs</h5>
+													<ul id="user-needs" class="arrow">
+														<li></li>
+													</ul>
 												</div>
 											</div>
-      <div id="wordWarningAlert" class="alert callout" data-closable >
-        <p><i class="fi-alert"></i> Please send us 600 words to get an accurate personality assessment.</p>
-          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+										</div>
+									</div>
+								</div>
+								<div id="wordWarningAlert" class="alert callout" data-closable>
+									<p><i class="fi-alert"></i> Please send us 600 words to get an accurate personality assessment.</p>
+									<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>
   </button>
-      </div>											
-										</div>
-										<div class="cell small-12 medium-5" data-sticky-container >
-										<div class="sticky" data-margin-top="6" data-sticky data-anchor="stick-to-me">
-												<h5 class="big-five separator-left">Big Five Personality Traits</h5>
-											<ul class="bar-graph">
-												<li id="openness-graph" class="bar primary" style="height: 100%;" >
-													<div class="percent"><span id="o-percent">0</span><span>%</span></div>
-													<div class="description">Openness</div>
-												</li>
-												<li id="conscientiousness-graph" class="bar secondary" style="height: 100%;">
-													<div class="percent"><span id="c-percent">0</span><span>%</span></div>
-													<div class="description">Vigilance</div>   <!-- Conscientiousness -->
-												</li>
-												<li id="extraversion-graph" class="bar success" style="height: 100%;">
-													<div class="percent"><span id="e-percent">0</span><span>%</span></div>
-													<div class="description">Extraversion</div>
-												</li>
-												<li id="agreeableness-graph" class="bar warning" style="height: 100%;">
-													<div class="percent"><span id="a-percent">0</span><span>%</span></div>
-													<div class="description">Agreeableness</div>
-												</li>
-												<li id="emotional-graph" class="bar alert" style="height: 100%;">
-													<div class="percent"><span id="em-percent">0</span><span>%</span></div>
-													<div class="description">Emotional<br> Range</div>
-												</li>
-											</ul>
-											<hr>
-											</div>
-										</div>
-										<!-- End of Personality Block -->
-									</div>
-															</div>
-															<!-- Text entry Section -->
-								<div class="callout"><h3 class="subheader">Your sentiment snapshot:</h3></div>
-							<div class="grid-x grid-padding-x">
-								<div class="small-12 medium-6 cell">
-									<div class="status-update-input-box">
-										<form data-abide novalidate >
-											<div class="row input-box-container">
-												<div class="columns">
-													<label> 
+								</div>
+							</div>
+							<div class="cell small-12 medium-5" data-sticky-container>
+								<div class="sticky" data-margin-top="6" data-sticky data-anchor="stick-to-me">
+									<h5 class="big-five separator-left">Big Five Personality Traits</h5>
+									<ul class="bar-graph">
+										<li id="openness-graph" class="bar primary" style="height: 100%;">
+											<div class="percent"><span id="o-percent">0</span><span>%</span></div>
+											<div class="description">Openness</div>
+										</li>
+										<li id="conscientiousness-graph" class="bar secondary" style="height: 100%;">
+											<div class="percent"><span id="c-percent">0</span><span>%</span></div>
+											<div class="description">Vigilance</div>
+											<!-- Conscientiousness -->
+										</li>
+										<li id="extraversion-graph" class="bar success" style="height: 100%;">
+											<div class="percent"><span id="e-percent">0</span><span>%</span></div>
+											<div class="description">Extraversion</div>
+										</li>
+										<li id="agreeableness-graph" class="bar warning" style="height: 100%;">
+											<div class="percent"><span id="a-percent">0</span><span>%</span></div>
+											<div class="description">Agreeableness</div>
+										</li>
+										<li id="emotional-graph" class="bar alert" style="height: 100%;">
+											<div class="percent"><span id="em-percent">0</span><span>%</span></div>
+											<div class="description">Emotional<br> Range</div>
+										</li>
+									</ul>
+									<hr>
+								</div>
+							</div>
+							<!-- End of Personality Block -->
+						</div>
+					</div>
+					<!-- Text entry Section -->
+					<div class="callout">
+						<h3 class="subheader">Your sentiment snapshot:</h3>
+					</div>
+					<div class="grid-x grid-padding-x">
+						<div class="small-12 medium-6 cell">
+							<div class="status-update-input-box">
+								<form data-abide novalidate>
+									<div class="row input-box-container">
+										<div class="columns">
+											<label> 
 												        <span class="form-error">
           													Please enter some text before submitting,
         												</span>
 													<textarea id="input-text" rows="5" required placeholder="Enter some text and hit Analyze."></textarea>
 												</label>
-											</div>
 										</div>
-										<div class="grid-x medium-collapse user-action-container">
+									</div>
+									<div class="grid-x medium-collapse user-action-container">
 										<div class="small-12 medium-7 cell">
-											        <span class="form-error">
+											<span class="form-error">
 											          Please enter some text before submitting,
 											        </span>
 										</div>
-											<div class="small-12 medium-5 cell">
-												<div class="user-submit-box">
-													<input type="submit" id="send-text" class="button small" value="ANALYZE">
-												</div>
+										<div class="small-12 medium-5 cell">
+											<div class="user-submit-box">
+												<input type="submit" id="send-text" class="button small" value="ANALYZE">
 											</div>
 										</div>
-									</form>
-								</div>
-								<!-- end of block input -->
+									</div>
+								</form>
+							</div>
+							<!-- end of block input -->
 							<br class="show-for-small-only">
-							</div>
-							<div class="small-12 medium-6 cell">
-								<!-- Foundation Block Card -->
-								<div class="travel-feature-card">
-									<div class="travel-feature-card-header">
-										<div class="grid-x grid-padding-x">
-											<div class="medium-12 cells">
-												<h5 class="travel-feature-card-subtitle">How you feel today:</h5>
-											</div>
-										</div>
-									</div>
-									<div class="travel-feature-card-details">
-										<h6 id="current-date" class="travel-feature-card-date-range"></h6>
-										<div class="grid-x grid-padding-x travel-feature-text">
-											<div class="small-12 medium-8 cells travel-feature-card-content">
-												<h6 class="travel-feature-card-title">Your Text</h6>
-												<p id="current-text">Enter some text and click Analyze to see your current sentiment score.</p>
-											</div>
-											<div class="small-12 medium-4 cells travel-feature-card-price">
-												<h6>Score: <span id="current-score">0</span></h6>
-												<p class="travel-feature-card-price-subtext">Magnitude: <span id="current-magnitude">0</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- End of Card -->
-							</div>
-						</div>															
-															<!-- End of Text Entry -->
-													</div>
-						<div class="row">
-							<div class="small-12 columns">
-								<div class="callout">
-									<div class="grid-x grid-padding-x" data-equalizer data-equalize-on="medium" id="sentiments-eq">
-										<div class="medium-3 cell">
-											<div class="callout" data-equalizer-watch>
-												<img src="">
-											</div>
-										</div>
-										<div class="medium-3 cell">
-											<div class="callout" data-equalizer-watch>
-												<p></p>
-											</div>
-										</div>
-										<div class="medium-3 cell">
-											<div class="callout" data-equalizer-watch>
-												<img src="">
-											</div>
-										</div>
-										<div class="medium-3 cell">
-											<div class="callout" data-equalizer-watch>
-												<img src="">
-											</div>
-										</div>
-									</div>
-										<div class="callout-section"><h3><strong>*</strong><small> <span class="alert label">Red</span> means the text has a negative tone, <span class="success label">Green</span> is positive and <span class="secondary label">Grey</span> is neutral</small></h3></div>
-
-								</div>
-							</div>
 						</div>
+						<div class="small-12 medium-6 cell">
+							<!-- Foundation Block Card -->
+							<div class="travel-feature-card">
+								<div class="travel-feature-card-header">
+									<div class="grid-x grid-padding-x">
+										<div class="medium-12 cells">
+											<h5 class="travel-feature-card-subtitle">How you feel today:</h5>
+										</div>
+									</div>
+								</div>
+								<div class="travel-feature-card-details">
+									<h6 id="current-date" class="travel-feature-card-date-range"></h6>
+									<div class="grid-x grid-padding-x travel-feature-text">
+										<div class="small-12 medium-8 cells travel-feature-card-content">
+											<h6 class="travel-feature-card-title">Your Text</h6>
+											<p id="current-text">Enter some text and click Analyze to see your current sentiment score.</p>
+										</div>
+										<div class="small-12 medium-4 cells travel-feature-card-price">
+											<h6>Score: <span id="current-score">0</span></h6>
+											<p class="travel-feature-card-price-subtext">Magnitude: <span id="current-magnitude">0</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End of Card -->
+						</div>
+					</div>
+					<!-- End of Text Entry -->
+				</div>
+				<div class="row">
+					<div class="small-12 columns">
+						<div class="callout">
+							<div class="grid-x grid-padding-x" data-equalizer data-equalize-on="medium" id="sentiments-eq">
+								<div class="medium-3 cell">
+									<div class="callout" data-equalizer-watch>
+										<img src="">
+									</div>
+								</div>
+								<div class="medium-3 cell">
+									<div class="callout" data-equalizer-watch>
+										<p></p>
+									</div>
+								</div>
+								<div class="medium-3 cell">
+									<div class="callout" data-equalizer-watch>
+										<img src="">
+									</div>
+								</div>
+								<div class="medium-3 cell">
+									<div class="callout" data-equalizer-watch>
+										<img src="">
+									</div>
+								</div>
+							</div>
+							<div class="callout-section">
+								<h3><strong>*</strong><small> <span class="alert label">Red</span> means the text has a negative tone, <span class="success label">Green</span> is positive and <span class="secondary label">Grey</span> is neutral</small></h3>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 				<!-- end of logged-in stuff -->
-				</div>
-			</section>
-			<!-- About Us Section -->
-			<section id="second" data-magellan-target="second">
-				<div class="callout large">
-					<div class="quote-inline-wrap-article-content">
-						<div class="quote-inline-wrap float-right">
-							<div class="quote-inline-marks">“</div>
-							<div class="quote-inline-testimonial">
-								<p>Knowing yourself is the beginning of all wisdom.</p>
-							</div>
-							<div class="quote-inline-person">
-								<div class="quote-inline-photo">
-									<img src="https://pbs.twimg.com/profile_images/548973005179588608/PbUTS1N3.jpeg" class="" height="" width="" alt="">
-								</div>
-								<p>Aristotle</p>
-							</div>
+			</div>
+		</section>
+		<!-- About Us Section -->
+		<section id="second" data-magellan-target="second">
+			<div class="callout large">
+				<div class="quote-inline-wrap-article-content">
+					<div class="quote-inline-wrap float-right">
+						<div class="quote-inline-marks">“</div>
+						<div class="quote-inline-testimonial">
+							<p>Knowing yourself is the beginning of all wisdom.</p>
 						</div>
-						<p>
-							<h1>About Our Software</h1>
-							Self-reflection can be a fruitful and and worthwhile endeavor, but without quantitative input, it can lead to self-deprecation.
-							With advances in natural language processing, self-assessments can be quantified and lead to concrete goals for improvement
-							or just a better understanding of one’s personality traits. WhoIB can take your text interactions and thoughts to give
-							you a snapshot of your tone. In the long-term, we will build a personality profile that will give you insights into
-							Who U B.
-						</p>
+						<div class="quote-inline-person">
+							<div class="quote-inline-photo">
+								<img src="https://pbs.twimg.com/profile_images/548973005179588608/PbUTS1N3.jpeg" class="" height="" width="" alt="">
+							</div>
+							<p>Aristotle</p>
+						</div>
 					</div>
-					<br><br>
-					<!--  -->
-					<section class="marketing-site-three-up">
-						<h2 class="marketing-site-three-up-headline">How do we do it all?</h2>
-						<div class="grid-x grid-padding-x medium-unstack">
-							<div class="cells medium-3 medium-offset-1">
-								<i class="fa fa-gg" aria-hidden="true"></i>
-								<h4 class="marketing-site-three-up-title">Security</h4>
-								<p class="marketing-site-three-up-desc">We only use Google API using OAuth 2.0 as a way to verify users to ensure a simple and secure environment for all
+					<p>
+						<h1>About Our Software</h1>
+						Self-reflection can be a fruitful and and worthwhile endeavor, but without quantitative input, it can lead to self-deprecation.
+						With advances in natural language processing, self-assessments can be quantified and lead to concrete goals for improvement
+						or just a better understanding of one’s personality traits. WhoIB can take your text interactions and thoughts to give
+						you a snapshot of your tone. In the long-term, we will build a personality profile that will give you insights into
+						Who U B.
+					</p>
+				</div>
+				<br><br>
+				<!--  -->
+				<section class="marketing-site-three-up">
+					<h2 class="marketing-site-three-up-headline">How do we do it all?</h2>
+					<div class="grid-x grid-padding-x medium-unstack">
+						<div class="cells medium-3 medium-offset-1">
+							<i class="fa fa-gg" aria-hidden="true"></i>
+							<h4 class="marketing-site-three-up-title">Security</h4>
+							<p class="marketing-site-three-up-desc">We only use Google API using OAuth 2.0 as a way to verify users to ensure a simple and secure environment for all
 								your data.</p>
-							</div>
-							<div class="cells medium-3">
-								<i class="fa fa-user-o" aria-hidden="true"></i>
-								<h4 class="marketing-site-three-up-title">Storage</h4>
-								<p class="marketing-site-three-up-desc">Firebase is built on Google infrastructure and scales automatically to accommodate you, no matter how much text you
+						</div>
+						<div class="cells medium-3">
+							<i class="fa fa-user-o" aria-hidden="true"></i>
+							<h4 class="marketing-site-three-up-title">Storage</h4>
+							<p class="marketing-site-three-up-desc">Firebase is built on Google infrastructure and scales automatically to accommodate you, no matter how much text you
 								send us.</p>
-							</div>
-							<div class="cells medium-3">
-								<i class="fa fa-check-square-o" aria-hidden="true"></i>
-								<h4 class="marketing-site-three-up-title">Reliable Data</h4>
-								<p class="marketing-site-three-up-desc">Watson Developer Cloud service lets you understand different individual’s personality characteristics, solely based
+						</div>
+						<div class="cells medium-3">
+							<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							<h4 class="marketing-site-three-up-title">Reliable Data</h4>
+							<p class="marketing-site-three-up-desc">Watson Developer Cloud service lets you understand different individual’s personality characteristics, solely based
 								on text analysis.</p>
+						</div>
+					</div>
+				</section>
+				<!--  -->
+			</div>
+		</section>
+		<section id="third" data-magellan-target="third">
+			<!-- footer from foundation building blocks -->
+			<footer class="responsive-blog-footer">
+				<div class="grid-x">
+					<div class="medium-8 cells small-order-2 medium-order-1 about-container">
+						<div class="grid-x grid-padding-x">
+							<div class="medium-8 cells about-section">
+								<h4>What's up with us?</h4>
+								<p>#TeamDavid builds awesome apps using HTML, jQuery, CSS, and Javascript. We pull together the latest APIs from IBM
+									Watson and Google Natural Language Processing to bring you an informative experience. Contact us if you need any
+									information.
+								</p>
 							</div>
 						</div>
-					</section>
-					<!--  -->
+					</div>
+					<div class="small-12 medium-4 cells small-order-1 medium-order-2 mailing-container">
+						<h4 class="mailing-list">Join our mailing list</h4>
+						<input type="text" placeholder="Email Address">
+						<a class="button expanded subscribe-button" href="#">Subscribe Now</a>
+					</div>
 				</div>
-			</section>
-			<section id="third" data-magellan-target="third">
-				<!-- footer from foundation building blocks -->
-				<footer class="responsive-blog-footer">
-					<div class="grid-x">
-						<div class="medium-8 cells small-order-2 medium-order-1 about-container">
-							<div class="grid-x grid-padding-x">
-								<div class="medium-8 cells about-section">
-									<h4>What's up with us?</h4>
-									<p>#TeamDavid builds awesome apps using HTML, jQuery, CSS, and Javascript. We pull together the latest APIs from IBM
-										Watson and Google Natural Language Processing to bring you an informative experience. Contact us if you need any
-										information.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="small-12 medium-4 cells small-order-1 medium-order-2 mailing-container">
-							<h4 class="mailing-list">Join our mailing list</h4>
-							<input type="text" placeholder="Email Address">
-							<a class="button expanded subscribe-button" href="#">Subscribe Now</a>
-						</div>
+				<div class="grid-x tag-search">
+					<div class="cells">
+						<h4>Contact Info</h4>
+						<ul class="menu simple tag-section">
+							<li><a href="mailto:JacobCThomas@Outlook.com">JacobCThomas@Outlook.com</a></li>
+							<li><a href="">713-517-3645</a></li>
+							<li><a href="">Houston, TX</a></li>
+						</ul>
 					</div>
-					<div class="grid-x tag-search">
-						<div class="cells">
-							<h4>Contact Info</h4>
-							<ul class="menu simple tag-section">
-								<li><a href="mailto:JacobCThomas@Outlook.com">JacobCThomas@Outlook.com</a></li>
-								<li><a href="">713-517-3645</a></li>
-								<li><a href="">Houston, TX</a></li>
-							</ul>
-						</div>
+				</div>
+				<div class="grid-x cells flex-container align-justify">
+					<p>©2017 all rights reserved</p>
+					<div class="up-arrow">
+						<a href="#top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
 					</div>
-					<div class="grid-x cells flex-container align-justify">
-						<p>©2017 all rights reserved</p>
-						<div class="up-arrow">
-							<a href="#top"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-						</div>
-					</div>
-				</footer>
-				<!-- end foundation footer -->
-			</section>
-			<!-- Modals -->
-			<div class="reveal" id="wordWarningModal" data-reveal>
-				<h3 class="subheader">Not Enough Words for Personality Profile</h3>
-				<p>Please enter something for us to analyze.</p>
-				<button class="close-button" data-close aria-label="Close reveal" type="button">
+				</div>
+			</footer>
+			<!-- end foundation footer -->
+		</section>
+		<!-- Modals -->
+		<div class="reveal" id="wordWarningModal" data-reveal>
+			<h3 class="subheader">Not Enough Words for Personality Profile</h3>
+			<p>Please enter something for us to analyze.</p>
+			<button class="close-button" data-close aria-label="Close reveal" type="button">
 					<span aria-hidden="true">&times;</span>
 				</button>
-			</div>
-			<div class="reveal" id="sentimentModal" data-reveal>
-				<p>Score: <span id="modal-score" class="badge"></span> Magnitude:
-				<span id="modal-magnitude" class="secondary badge"></span></p>
-				<p class="lead">On <span id="modal-date"></span> you said:</p>
-				<p id="modal-text"></p>
-				<p>
-					<button id="modal-delete-button" class="alert button">Delete</button>
-					<button id="modal-close-button" class="primary button">Close</button>
-				</p>
-				<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
-			</div>
 		</div>
-		<script type="text/javascript" src="assets/scripts/logic.js"></script>
-		<script src="assets/js/vendor/what-input.js"></script>
-		<script src="assets/js/vendor/foundation.js"></script>
-		<script src="assets/js/app.js"></script>
-	</body>
+		<div class="reveal" id="sentimentModal" data-reveal>
+			<button id="modal-delete-button" class="alert button">Delete</button>
+			<button id="modal-close-button" class="primary button">Close</button>
+			
+			<p>Score: <span id="modal-score" class="badge"></span> Magnitude:
+				<span id="modal-magnitude" class="secondary badge"></span></p>
+			<p class="lead">On <span id="modal-date"></span> you said:</p>
+			<p id="modal-text"></p>
+
+			<button class="close-button" data-close aria-label="Close reveal" type="button"><span aria-hidden="true">&times;</span></button>
+		</div>
+	</div>
+	<script type="text/javascript" src="assets/scripts/logic.js"></script>
+	<script src="assets/js/vendor/what-input.js"></script>
+	<script src="assets/js/vendor/foundation.js"></script>
+	<script src="assets/js/app.js"></script>
+</body>
+
 </html>

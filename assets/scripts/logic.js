@@ -187,6 +187,7 @@ WhoUB.prototype.deleteSentiment = function(e) {
 	this.texts.splice($(e.target).attr("data-key"), 1);
 	this.pushToFirebase();
 	this.modal.foundation('close');
+	this.analyzezPersonality();
 }
 
 WhoUB.prototype.closeModal = function() {
@@ -200,9 +201,9 @@ WhoUB.prototype.displaySentimentHistory = function() {
 	for (key in this.texts) {
 		sentimentContainer = $('<div class="medium-3 cell">');
 		calloutClass = "secondary";
-		if (this.texts[key].score > .6 && this.texts[key].magnitude > 1) {
+		if (this.texts[key].score >= .7) {
 			calloutClass = "success";
-		} else if (this.texts[key].score < 0 && this.texts[key].magnitude > 0) {
+		} else if (this.texts[key].score <= -.7) {
 			calloutClass = "alert";
 		}
 
@@ -269,7 +270,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		type: 'POST',
 		dataType: 'JSON',
 		data: {
-			content: combinedText
+			content: `${combinedText}`
 		}
 	}).done(res => {
 		//Show big 5 personality in Graphs
@@ -356,8 +357,13 @@ WhoUB.prototype.analyzeText = function(e) {
 		$.ajax(settings).done(function(response) {
 			let newSnip = new this.Snippet(inputText, response.documentSentiment.score,
 				response.documentSentiment.magnitude)
+			
+			var shortText = null;
+			if (newSnip.text.length > 400) 
+				shortText = newSnip.text.substring(0, 400) + "...";
+		
 			this.curDate.html(newSnip.time);
-			this.curText.html(newSnip.text);
+			this.curText.html(shortText || newSnip.text);
 			this.curScore.html(newSnip.score);
 			this.curMagnitude.html(newSnip.magnitude);
 			this.texts.push(newSnip); //put user input into texts array

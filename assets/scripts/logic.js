@@ -187,6 +187,7 @@ WhoUB.prototype.deleteSentiment = function(e) {
 	this.texts.splice($(e.target).attr("data-key"), 1);
 	this.pushToFirebase();
 	this.modal.foundation('close');
+	this.analyzezPersonality();
 }
 
 WhoUB.prototype.closeModal = function() {
@@ -270,7 +271,7 @@ WhoUB.prototype.analyzezPersonality = function(e) {
 		type: 'POST',
 		dataType: 'JSON',
 		data: {
-			content: combinedText
+			content: `${combinedText}`
 		}
 	}).done(res => {
 		//Show big 5 personality in Graphs
